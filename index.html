@@ -33,7 +33,7 @@
     max-width:1100px;
     margin:0 auto;
     display:grid;
-    grid-template-columns: 240px 1fr;
+    grid-template-columns: 260px 1fr;
     gap:20px;
     padding:20px;
   }
@@ -71,10 +71,139 @@
   .nav{
     display:flex;
     flex-direction:column;
+    gap:10px;
+  }
+
+  /* Search highlight */
+  mark.hit{
+    background: #fff2a8;
+    padding: 0 2px;
+    border-radius: 3px;
+  }
+  mark.hit.current{
+    outline: 2px solid var(--accent);
+    box-shadow: 0 0 0 3px rgba(26,115,232,.15);
+  }
+  .search-box{
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+  }
+  .search-box label{
+    display:block;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .search-row{
+    display:flex;
+    gap:8px;
+  }
+  .search-row input{
+    flex:1;
+    padding: 10px 10px;
+    border-radius: 10px;
+    border:1px solid var(--line);
+    font-size: 14px;
+    outline:none;
+  }
+  .search-row input:focus{
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(26,115,232,.15);
+  }
+  .search-actions{
+    display:flex;
+    gap:6px;
+    margin-top: 8px;
+  }
+  .search-actions button{
+    flex:1;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border:1px solid var(--line);
+    background:#fff;
+    cursor:pointer;
+    font-size: 13px;
+  }
+  .search-actions button:hover{
+    background: var(--soft);
+  }
+  .search-meta{
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--muted);
+    text-align:center;
+  }
+
+  /* ===== Collapsible nav groups (details/summary) ===== */
+  details.nav-group{
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:#fff;
+    overflow:hidden;
+  }
+
+  details.nav-group > summary{
+    list-style:none;
+    cursor:pointer;
+    padding:10px 10px;
+    font-size:14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    user-select:none;
+  }
+  details.nav-group > summary::-webkit-details-marker{ display:none; }
+
+  .summary-left{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    min-width:0;
+  }
+  .pill{
+    width:18px;
+    height:18px;
+    border-radius:6px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid var(--line);
+    background:var(--soft);
+    font-size:11px;
+    color:var(--muted);
+    flex:0 0 auto;
+  }
+  .summary-title{
+    font-weight:700;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .chev{
+    width:10px;
+    height:10px;
+    border-right:2px solid var(--muted);
+    border-bottom:2px solid var(--muted);
+    transform: rotate(-45deg);
+    transition: transform .15s ease;
+    margin-left:10px;
+    flex:0 0 auto;
+  }
+  details[open] > summary .chev{
+    transform: rotate(45deg);
+  }
+
+  .group-body{
+    border-top:1px solid var(--line);
+    padding:8px;
+    background:#fff;
+    display:flex;
+    flex-direction:column;
     gap:6px;
   }
 
-  .nav a{
+  .tab-link{
     display:block;
     padding:10px 10px;
     border-radius:10px;
@@ -84,18 +213,38 @@
     font-size:14px;
     cursor:pointer;
   }
-  .nav a:hover{ background:var(--soft); }
-  .nav a.active{
+  .tab-link:hover{ background:var(--soft); }
+  .tab-link.active{
     border-color:var(--accent);
     box-shadow:0 0 0 2px rgba(26,115,232,.15);
   }
 
-  .nav a.section-link{
-    padding-left:14px;
+  /* sub links look like children */
+  .sub-link{
+    display:block;
+    padding:8px 10px 8px 26px;
+    border-radius:10px;
+    border:1px solid var(--line);
+    background:#fff;
+    font-size:13px;
+    color:var(--fg);
+    position:relative;
+  }
+  .sub-link:hover{ background:var(--soft); }
+  .sub-link::before{
+    content:"";
+    position:absolute;
+    left:14px;
+    top:50%;
+    width:8px;
+    height:8px;
+    border-left:2px solid var(--line);
+    border-bottom:2px solid var(--line);
+    transform: translateY(-50%) rotate(45deg);
+    opacity:.9;
   }
 
   .content{ min-width:0; }
-
   .cv-block{ display:none; }
   .cv-block.active{ display:block; }
 
@@ -147,67 +296,6 @@
     .page{ grid-template-columns: 1fr; }
     .sidebar{ position:relative; height:auto; }
   }
-
-  /* Search highlight */
-  mark.hit{
-    background: #fff2a8;
-    padding: 0 2px;
-    border-radius: 3px;
-  }
-  mark.hit.current{
-    outline: 2px solid var(--accent);
-    box-shadow: 0 0 0 3px rgba(26,115,232,.15);
-  }
-  .search-box{
-    margin-top: 10px;
-    border-top: 1px solid var(--line);
-    padding-top: 12px;
-  }
-  .search-box label{
-    display:block;
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 6px;
-  }
-  .search-row{
-    display:flex;
-    gap:8px;
-  }
-  .search-row input{
-    flex:1;
-    padding: 10px 10px;
-    border-radius: 10px;
-    border:1px solid var(--line);
-    font-size: 14px;
-    outline:none;
-  }
-  .search-row input:focus{
-    border-color: var(--accent);
-    box-shadow: 0 0 0 2px rgba(26,115,232,.15);
-  }
-  .search-actions{
-    display:flex;
-    gap:6px;
-    margin-top: 8px;
-  }
-  .search-actions button{
-    flex:1;
-    padding: 8px 10px;
-    border-radius: 10px;
-    border:1px solid var(--line);
-    background:#fff;
-    cursor:pointer;
-    font-size: 13px;
-  }
-  .search-actions button:hover{
-    background: var(--soft);
-  }
-  .search-meta{
-    margin-top: 8px;
-    font-size: 12px;
-    color: var(--muted);
-    text-align:center;
-  }
 </style>
 </head>
 
@@ -223,6 +311,7 @@
     </div>
 
     <nav class="nav">
+
       <div class="search-box">
         <label for="cvSearch">Search on this page</label>
         <div class="search-row">
@@ -236,11 +325,44 @@
         <div class="search-meta" id="hitCount">0 results</div>
       </div>
 
-      <a href="#" class="tab-link active" data-target="en">English version</a>
-      <a href="#pub-en" class="section-link" data-scope="en">Publications</a>
-      <a href="#proj-en" class="section-link" data-scope="en">Projects</a>
-      <a href="#awards-en" class="section-link" data-scope="en">Awards</a>
-      <a href="#" class="tab-link" data-target="ko">Korean version</a>
+      <!-- English group -->
+      <details class="nav-group" open>
+        <summary>
+          <span class="summary-left">
+            <span class="pill">EN</span>
+            <span class="summary-title">English version</span>
+          </span>
+          <span class="chev" aria-hidden="true"></span>
+        </summary>
+        <div class="group-body">
+          <!-- Tab switch button (kept inside the group so it reads as the parent) -->
+          <a href="#" class="tab-link active" data-target="en">Open English</a>
+          <a href="#pub-en" class="sub-link section-link" data-scope="en">Publications</a>
+          <a href="#proj-en" class="sub-link section-link" data-scope="en">Projects</a>
+          <a href="#awards-en" class="sub-link section-link" data-scope="en">Awards</a>
+        </div>
+      </details>
+
+      <!-- Korean group -->
+      <details class="nav-group">
+        <summary>
+          <span class="summary-left">
+            <span class="pill">KO</span>
+            <span class="summary-title">Korean version</span>
+          </span>
+          <span class="chev" aria-hidden="true"></span>
+        </summary>
+        <div class="group-body">
+          <a href="#" class="tab-link" data-target="ko">Open Korean</a>
+          <!-- 필요하면 한국어도 하위 섹션 링크 추가 가능 -->
+          <!--
+          <a href="#pub-ko" class="sub-link section-link" data-scope="ko">연구 실적</a>
+          <a href="#proj-ko" class="sub-link section-link" data-scope="ko">용역 실적</a>
+          <a href="#awards-ko" class="sub-link section-link" data-scope="ko">수상 실적</a>
+          -->
+        </div>
+      </details>
+
     </nav>
   </aside>
 
@@ -295,29 +417,6 @@
         </ul>
       </section>
 
-      <section>
-        <h2>Papers under the development and/or writing</h2>
-        <div class="year">AirStas Team 6</div>
-        <ul>
-          <li>Bae, S., Lee, H., Soeiro, J. D., Shin, H., Metzger, P., &amp; Kim, M. J. (2026a). Tentative title: Immersive recovery Through Space Tourism: An Experimental Study on Psychological and Physiological Responses, <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
-          <li>Lee, H., Bae, S., Soeiro, J. D., Shin, H., Metzger, P., &amp; Kim, M. J. (2026b). Tentative title: Does Microgravity-like VR Recalibrate Risk? Evidence from Underwater vs. Ground VR for Space Tourism, <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
-          <li>Park, G., Bae, S., Lee, H., Soeiro, J. D., Metzger, P., &amp; Kim, M. J. (2026c). Tentative title: Estimating Consumer Preferences for Space Tourism Experiences: Sensation Seeking, Need for Uniqueness, and Willingness to Pay, <i>Journal of Travel Research</i>, Under the development (SSCI, Q1).</li>
-        </ul>
-
-        <div class="year">AirStas Team 7</div>
-        <ul>
-          <li>Bae, S., Choi, H., Kim, N., Petrick, J. F., &amp; Kim, M. J. (2026). Tentative title: Space Flight Experience Interview, <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
-          <li>Choi, H., Bae, S., Kim, N., Petrick, J. F., &amp; Kim, M. J. (2026). Tentative title: Affective and Emotional Experiences of Space Tourists in Isolated Space Environments, <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
-        </ul>
-
-        <div class="year">AirStas Team 9</div>
-        <ul>
-          <li>Lee, H., Lim, W. M., Bae, S., Hong, M., &amp; Kim, M. J. (2026a). Tentative title: Space tourism bibliometric analysis: Business ecosystem &amp; strategic management, Tentative target journal: <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
-          <li>Bae, S., Lim, W. M., Lee, H., Hong, M., &amp; Kim, M. J. (2026b). Tentative title: Space tourism bibliometric analysis: Sustainability, ethics &amp; corporate social responsibility, Tentative target journal: <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
-          <li>Hong, M., Lim, W. M., Lee, H., Bae, S., &amp; Kim, M. J. (2026c). Tentative title: Space tourism bibliometric analysis: Risk, regulation &amp; policy challenges, Tentative target journal: <i>Journal of Travel Research</i>, Under the development (SSCI, Q1).</li>
-        </ul>
-      </section>
-
       <section id="proj-en">
         <h2>Research &amp; Consulting Projects</h2>
         <ul>
@@ -340,22 +439,6 @@
         </ul>
       </section>
 
-      <section>
-        <h2>Professional Training &amp; Certification</h2>
-        <ul>
-          <li>2026 Jeju RISE · AWS Global Space Bootcamp (23 December 2025 – 4 February 2026) Amazon Web Services (AWS) Korea.</li>
-          <li>Practical Artificial Intelligence Project Programme, 12 September 2022.</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Additional Activities</h2>
-        <ul>
-          <li>Honorary Correspondent, Happy Education (Ministry of Education, Republic of Korea), 15 January 2025 – Present.</li>
-          <li>Honorary Correspondent, With Together Magazine, Korea Differently Abled People’s Rights Advocacy Institute, 15 January 2025 – Present.</li>
-        </ul>
-      </section>
-
     </div>
 
     <!-- ===================== KOREAN ===================== -->
@@ -368,42 +451,9 @@
 
       <section>
         <h2>연구 실적 (17 KCI)</h2>
-
         <div class="year">2026</div>
         <ul>
           <li>17. From Viewing to Buying: How Viewer Attitudes and Para-Social Bonds Drive Short Food Content Purchase Intentions. <i>Culinary Science &amp; Hospitality Research</i>, 32(02), 미정</li>
-        </ul>
-
-        <div class="year">2025</div>
-        <ul>
-          <li>16. 외식 프랜차이즈 ESG경영 인식이 브랜드 만족 및 충성도 형성에 미치는 영향: 서열형 프로빗 분석, <i>Culinary Science &amp; Hospitality Research</i>, 31(12), 431-454.</li>
-          <li>15. 서열형 프로빗 모형을 적용한 문화유산 관광동기, 관광제약 및 태도 간의 영향 요인 분석. <i>한국외식산업학회지</i>, 21(6), 431-454.</li>
-          <li>14. Comparative Analysis of Foreign Consumers’ Perceptions of Korean Food Emotions: Focusing on Reddit Cases, <i>인터넷전자상거래연구</i>, 25(5), 121-131.</li>
-          <li>13. 여행상품 온라인 맞춤형 광고 수용의도 형성 과정 탐색: 온라인 맞춤형 광고 특성 및 과거 관광기억의 효과. <i>e-비즈니스연구</i>, 26(2), 109-125.</li>
-          <li>12. 시니어 관광객의 여행사 패키지 투어 체험이 여행 만족, 신뢰 및 프리미엄 지불 의사에 미치는 영향: 체험경제이론을 중심으로. <i>관광진흥연구</i>, 13(10), 129-148.</li>
-          <li>11. 자연길 도보관광객의 체험경제요소가 감정적 애착과 친환경 행동에 미치는 영향: 친환경 정체성 조절효과. <i>관광진흥연구</i>, 13(1), 91-111.</li>
-        </ul>
-
-        <div class="year">2024</div>
-        <ul>
-          <li>10. 템플스테이의 사회적 인식과 활성화 전략 - ‘서핑 템플스테이, 댕플스테이, 나는 절로’의 빅데이터 분석을 중심으로-. <i>한국외식산업학회지</i>, 20(6), 275-288.</li>
-          <li>9. 오픈키친 레스토랑의 로봇 셰프 이용동기가 소비자 태도, 이용의도 및 구전의도에 미치는 효과-대안매력의 조절효과. <i>한국외식산업학회지</i>, 20(6), 383-397.</li>
-          <li>8. 커피숍 에코매장에서 다회용 컵 사용에 대한 고객의 태도 형성에 미치는 동기요인 탐색. <i>관광진흥연구</i>, 특집호-호스피탈리티·외식분과, 167-184.</li>
-          <li>7. 로봇셰프 조리 음식의 품질 기대와 개인의 혁신성이 소비자 태도와 레스토랑 방문 의도에 미치는 영향. <i>관광진흥연구</i>, 12(3), 27-42.</li>
-          <li>6. 가상공간 레스토랑의 공유주방 운영에 대한 혜택 고찰: 소상공인 운영자 관점에서. <i>호텔관광연구</i>, 26(4), 193-204.</li>
-          <li>5. 서빙로봇이 레스토랑 이용고객의 태도 및 행동의도에 미치는 영향. <i>한국프랜차이즈경영연구</i>, 15(2), 56-74.</li>
-          <li>4. 커피숍 다회용 컵 사용에 대한 태도 형성을 저해하는 사용 장벽 분석. <i>한국외식산업학회지</i>, 20(3), 119-131.</li>
-          <li>3. 소셜 미디어에 걷기여행경험 공유 행동에 대한 동기, 혜택 및 가치 구조 고찰. <i>호텔관광연구</i>, 26(2), 65-79.</li>
-        </ul>
-
-        <div class="year">2023</div>
-        <ul>
-          <li>2. 레스토랑에서의 서빙로봇 이용 동기가 태도와 재방문 의도에 미치는 영향. <i>한국외식산업학회지</i>, 19(6), 281-295.</li>
-        </ul>
-
-        <div class="year">2022</div>
-        <ul>
-          <li>1. 코로나 19 발생 이후 캠핑장 선택속성의 중요도-만족도 분석: 캠핑경험 빈도에 따른 차이. <i>호텔경영학연구</i>, 31(4), 127-145.</li>
         </ul>
       </section>
 
@@ -426,22 +476,6 @@
           <li>2024.12.17. 제40차 한국외식산업학회, 우수논문상 | 한국외식산업학회</li>
           <li>2024.12.04. 제7회 피란수도 부산 논문공모전, 전문연구자 분야 우수논문상(장려상, 부산시장 표창) | 부산광역시</li>
           <li>2022.06.25. 제35차 한국외식산업학회, 우수논문상 | 한국외식산업학회</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>교육 수료</h2>
-        <ul>
-          <li>2026 제주 RISE·AWS 글로벌 스페이스 부트캠프 (2025.12.23.-2026.02.04.) | 아마존웹서비스 코리아</li>
-          <li>2022 실전형 인공지능 프로젝트 과정 (2022.09.12.)</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>기타 실적</h2>
-        <ul>
-          <li>교육부 행복한교육 명예기자, 2025.01.15.~현재</li>
-          <li>(사)장애우권익문제연구소 함께걸음 명예기자, 2025.01.15.~현재</li>
         </ul>
       </section>
 
@@ -468,7 +502,7 @@
 
   let currentHits = [];
   let currentIndex = -1;
-  let activeScopeId = 'en'; // default
+  let activeScopeId = 'en';
 
   function getActiveContainer(){
     return document.getElementById(activeScopeId);
@@ -476,19 +510,13 @@
 
   function setHitCount(){
     const n = currentHits.length;
-    if (!n) {
-      hitCountEl.textContent = '0 results';
-    } else {
-      hitCountEl.textContent = `${n} result${n === 1 ? '' : 's'} — ${currentIndex + 1}/${n}`;
-    }
+    if (!n) hitCountEl.textContent = '0 results';
+    else hitCountEl.textContent = `${n} result${n === 1 ? '' : 's'} — ${currentIndex + 1}/${n}`;
   }
 
   function unwrapMarks(container){
     const marks = container.querySelectorAll('mark.hit');
-    marks.forEach(m => {
-      const text = document.createTextNode(m.textContent);
-      m.replaceWith(text);
-    });
+    marks.forEach(m => m.replaceWith(document.createTextNode(m.textContent)));
     container.normalize();
   }
 
@@ -502,15 +530,10 @@
     currentIndex = -1;
 
     const q = query.trim();
-    if (!q){
-      setHitCount();
-      return;
-    }
+    if (!q){ setHitCount(); return; }
 
-    const safe = escapeRegExp(q);
-    const re = new RegExp(safe, 'gi');
+    const re = new RegExp(escapeRegExp(q), 'gi');
 
-    // Walk text nodes and wrap matches
     const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, {
       acceptNode(node){
         if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
@@ -518,23 +541,21 @@
         if (!p) return NodeFilter.FILTER_REJECT;
         const tag = p.tagName?.toLowerCase();
         if (tag === 'script' || tag === 'style') return NodeFilter.FILTER_REJECT;
-        // Avoid highlighting inside the sidebar/nav even if nested (safety)
         if (p.closest('.sidebar')) return NodeFilter.FILTER_REJECT;
         return NodeFilter.FILTER_ACCEPT;
       }
     });
 
-    const textNodes = [];
-    while (walker.nextNode()) textNodes.push(walker.currentNode);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
 
-    textNodes.forEach(node => {
+    nodes.forEach(node => {
       const text = node.nodeValue;
       if (!re.test(text)) return;
-
       re.lastIndex = 0;
+
       const frag = document.createDocumentFragment();
-      let last = 0;
-      let m;
+      let last = 0, m;
 
       while ((m = re.exec(text)) !== null){
         const start = m.index;
@@ -551,7 +572,6 @@
       }
 
       if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
-
       node.parentNode.replaceChild(frag, node);
     });
 
@@ -565,11 +585,9 @@
 
   function focusHit(idx){
     if (!currentHits.length) return;
-
     currentHits.forEach(h => h.classList.remove('current'));
     const el = currentHits[idx];
     el.classList.add('current');
-
     el.scrollIntoView({ behavior:'smooth', block:'center' });
     currentIndex = idx;
     setHitCount();
@@ -577,18 +595,15 @@
 
   function nextHit(){
     if (!currentHits.length) return;
-    const idx = (currentIndex + 1) % currentHits.length;
-    focusHit(idx);
+    focusHit((currentIndex + 1) % currentHits.length);
   }
 
   function prevHit(){
     if (!currentHits.length) return;
-    const idx = (currentIndex - 1 + currentHits.length) % currentHits.length;
-    focusHit(idx);
+    focusHit((currentIndex - 1 + currentHits.length) % currentHits.length);
   }
 
   function clearSearch(){
-    // clear in BOTH blocks, just to keep it clean
     blocks.forEach(b => unwrapMarks(b));
     currentHits = [];
     currentIndex = -1;
@@ -596,11 +611,9 @@
     setHitCount();
   }
 
-  // Debounced search
   let t = null;
   function runSearch(){
-    const container = getActiveContainer();
-    highlightAll(container, searchInput.value);
+    highlightAll(getActiveContainer(), searchInput.value);
   }
 
   searchInput.addEventListener('input', () => {
@@ -609,33 +622,22 @@
   });
 
   searchInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter'){
-      e.preventDefault();
-      runSearch();
-    }
-    if (e.key === 'Escape'){
-      clearSearch();
-    }
+    if (e.key === 'Enter'){ e.preventDefault(); runSearch(); }
+    if (e.key === 'Escape'){ clearSearch(); }
   });
 
   nextBtn.addEventListener('click', nextHit);
   prevBtn.addEventListener('click', prevHit);
   clearBtn.addEventListener('click', clearSearch);
 
-  // ---- Tab switching
+  // ---- Tabs
   function setActiveTab(targetId){
     activeScopeId = targetId;
 
     blocks.forEach(b => b.classList.toggle('active', b.id === targetId));
     tabLinks.forEach(a => a.classList.toggle('active', a.dataset.target === targetId));
 
-    sectionLinks.forEach(l => {
-      const ok = (l.dataset.scope === targetId);
-      l.style.opacity = ok ? '1' : '0.45';
-      l.style.pointerEvents = ok ? 'auto' : 'none';
-    });
-
-    // reset highlights when switching tabs (prevents broken nav/selection)
+    // clean highlights when switching
     blocks.forEach(b => unwrapMarks(b));
     currentHits = [];
     currentIndex = -1;
@@ -648,28 +650,39 @@
     link.addEventListener('click', (e) => {
       e.preventDefault();
       setActiveTab(link.dataset.target);
+
+      // auto-open the corresponding details group, close the other (optional but tidy)
+      const group = link.closest('details.nav-group');
+      document.querySelectorAll('details.nav-group').forEach(d => d.open = false);
+      if (group) group.open = true;
     });
   });
 
-  // Section links: ensure they switch to the right tab first
+  // Section links: if you're in KO and click EN sublink, switch to EN first then jump
   sectionLinks.forEach(l => {
     l.addEventListener('click', (e) => {
       const scope = l.dataset.scope;
       if (scope !== activeScopeId){
-        // switch tab, then jump
         setActiveTab(scope);
-        // allow layout to update before jumping
+        // open the right group
+        document.querySelectorAll('details.nav-group').forEach(d => d.open = false);
+        const openGroup = document.querySelector(`details.nav-group ${scope === 'en' ? 'summary .pill' : ''}`);
+        // safer: just open by order
+        const groups = document.querySelectorAll('details.nav-group');
+        if (scope === 'en' && groups[0]) groups[0].open = true;
+        if (scope === 'ko' && groups[1]) groups[1].open = true;
+
         setTimeout(() => {
           const id = l.getAttribute('href');
           const el = document.querySelector(id);
           if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
-        }, 50);
+        }, 60);
         e.preventDefault();
       }
     });
   });
 
-  // Ensure English is default on load
+  // default
   setActiveTab('en');
 </script>
 

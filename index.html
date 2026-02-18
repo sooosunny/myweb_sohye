@@ -2,32 +2,196 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Profile</title>
+
 <style>
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Arial', sans-serif; line-height: 1.6; margin: 20px; }
-    header, footer { background: #f1f1f1; padding: 10px 20px; text-align: center; }
-    section { margin-bottom: 20px; }
-    img { max-width: 200px; }
+  html { scroll-behavior: smooth; }
+
+  :root{
+    --bg:#ffffff;
+    --card:#ffffff;
+    --fg:#111827;
+    --muted:#6b7280;
+    --line:#e5e7eb;
+    --soft:#f3f4f6;
+    --accent:#1a73e8; /* Google-ish blue */
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    padding:24px;
+    font-family: Arial, sans-serif;
+    line-height:1.6;
+    color:var(--fg);
+    background:var(--bg);
+  }
+
+  a{ color:var(--accent); text-decoration:none; }
+  a:hover{ text-decoration:underline; }
+
+  /* Scholar-like layout */
+  .page{
+    max-width:1100px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns: 320px 1fr;
+    gap:24px;
+    align-items:start;
+  }
+
+  /* Left profile card */
+  header{
+    position:sticky;
+    top:16px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:16px;
+  }
+
+  header img{
+    width:100%;
+    max-width:220px;
+    height:auto;
+    border-radius:10px;
+    display:block;
+    margin:0 auto 12px;
+    border:1px solid var(--line);
+    background:var(--soft);
+  }
+
+  header h1{
+    font-size:22px;
+    margin:8px 0 4px;
+    text-align:center;
+  }
+
+  header p{
+    margin:0;
+    text-align:center;
+    color:var(--muted);
+    font-size:14px;
+  }
+
+  .quick-links{
+    margin-top:14px;
+    padding-top:12px;
+    border-top:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    font-size:14px;
+  }
+
+  .pill{
+    display:inline-block;
+    padding:8px 10px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    background:#fff;
+    text-align:center;
+  }
+
+  /* Main content */
+  main{
+    background:transparent;
+  }
+
+  .lang-banner{
+    border:1px solid var(--line);
+    background:var(--soft);
+    border-radius:12px;
+    padding:14px 16px;
+    margin-bottom:16px;
+    text-align:center;
+  }
+  .lang-banner h2{
+    margin:0;
+    font-size:18px;
+  }
+  .lang-banner p{
+    margin:6px 0 0;
+    color:var(--muted);
+    font-size:13px;
+  }
+
+  section{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:16px;
+    margin:0 0 16px;
+  }
+
+  section h2{
+    font-size:16px;
+    margin:0 0 10px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line);
+    letter-spacing:0.2px;
+  }
+
+  /* Fix semantics: h3 should not be inside ul */
+  .year{
+    margin:14px 0 6px;
+    font-size:14px;
+    color:#374151;
+    font-weight:700;
+  }
+
+  ul{
+    margin:8px 0 0 18px;
+    padding:0;
+  }
+  li{ margin:6px 0; }
+
+  .divider{
+    height:1px;
+    background:var(--line);
+    margin:22px 0;
+  }
+
+  footer{
+    max-width:1100px;
+    margin:16px auto 0;
+    color:var(--muted);
+    text-align:center;
+    font-size:12px;
+  }
+
+  /* Mobile */
+  @media (max-width: 900px){
+    body{ padding:16px; }
+    .page{
+      grid-template-columns: 1fr;
+    }
+    header{
+      position:relative;
+      top:auto;
+    }
+  }
 </style>
 </head>
+
 <body>
-<header>
+
+<div class="page">
+
+  <!-- LEFT: Scholar-like profile card -->
+  <header id="english">
     <img src="profile.jpg" alt="프로필 사진">
-    <h1> 배소혜 (Bae, Sohye), PhD </h1>
+    <h1>배소혜 (Bae, Sohye), PhD</h1>
     <p>관광학 (Tourism Management)</p>
-</header>
 
-<p style="text-align:center;">
-  <a href="#korean">▼ 한국어로 이동 (Go to Korean version)</a>
-</p>
-
-    <div id="english" style="background:#eef5ff; padding:20px; border-radius:10px; text-align:center;">
-  <h2 style="margin:0;">English</h2>
-  <p style="margin:6px 0 0; color:gray;">
-    English version of the CV.
-  </p>
-</div>
+  <div class="quick-links">
+      <a class="pill" href="#korean">▼ Go to Korean version</a>
+      <a class="pill" href="#publications-en">Publications</a>
+      <a class="pill" href="#projects-en">Projects</a>
+      <a class="pill" href="#awards-en">Awards</a>
+    </div>
+  </header>
 
     <section>
     <h2>PUBLICATIONS (17 KCI)</h2>

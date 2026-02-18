@@ -2,138 +2,128 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Profile</title>
 
 <style>
   html { scroll-behavior: smooth; }
 
   :root{
-    --bg:#ffffff;
-    --card:#ffffff;
     --fg:#111827;
     --muted:#6b7280;
     --line:#e5e7eb;
     --soft:#f3f4f6;
-    --accent:#1a73e8; /* Google-ish blue */
+    --accent:#1a73e8;
   }
 
   *{ box-sizing:border-box; }
+
   body{
     margin:0;
-    padding:24px;
     font-family: Arial, sans-serif;
     line-height:1.6;
     color:var(--fg);
-    background:var(--bg);
+    background:#fff;
   }
 
-  a{ color:var(--accent); text-decoration:none; }
-  a:hover{ text-decoration:underline; }
+  a{ color:inherit; text-decoration:none; }
+  a:hover{ text-decoration:none; }
 
-  /* Scholar-like layout */
   .page{
     max-width:1100px;
     margin:0 auto;
     display:grid;
-    grid-template-columns: 320px 1fr;
-    gap:24px;
-    align-items:start;
+    grid-template-columns: 240px 1fr;
+    gap:20px;
+    padding:20px;
   }
 
-  /* Left profile card */
-  header{
-    position:sticky;
-    top:16px;
-    background:var(--card);
+  .sidebar{
+    position: sticky;
+    top: 16px;
+    align-self:start;
+    height: calc(100vh - 32px);
     border:1px solid var(--line);
     border-radius:12px;
-    padding:16px;
+    padding:14px;
+    background:#fafafa;
+    overflow:auto;
   }
 
-  header img{
+  .profile{
+    text-align:center;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:12px;
+  }
+  .profile img{
     width:100%;
-    max-width:220px;
-    height:auto;
+    max-width:170px;
     border-radius:10px;
-    display:block;
-    margin:0 auto 12px;
     border:1px solid var(--line);
-    background:var(--soft);
+    background:#fff;
+    display:block;
+    margin:0 auto 10px;
   }
+  .profile h1{ font-size:18px; margin:0 0 2px; }
+  .profile p{ margin:0; color:var(--muted); font-size:13px; }
 
-  header h1{
-    font-size:22px;
-    margin:8px 0 4px;
-    text-align:center;
-  }
-
-  header p{
-    margin:0;
-    text-align:center;
-    color:var(--muted);
-    font-size:14px;
-  }
-
-  .quick-links{
-    margin-top:14px;
-    padding-top:12px;
-    border-top:1px solid var(--line);
+  .nav{
     display:flex;
     flex-direction:column;
-    gap:8px;
-    font-size:14px;
+    gap:6px;
   }
 
-  .pill{
-    display:inline-block;
-    padding:8px 10px;
+  .nav a{
+    display:block;
+    padding:10px 10px;
+    border-radius:10px;
     border:1px solid var(--line);
-    border-radius:999px;
     background:#fff;
-    text-align:center;
+    color:var(--fg);
+    font-size:14px;
+    cursor:pointer;
+  }
+  .nav a:hover{ background:var(--soft); }
+  .nav a.active{
+    border-color:var(--accent);
+    box-shadow:0 0 0 2px rgba(26,115,232,.15);
   }
 
-  /* Main content */
-  main{
-    background:transparent;
+  .nav a.section-link{
+    padding-left:14px;
   }
 
-  .lang-banner{
+  .content{ min-width:0; }
+
+  .cv-block{ display:none; }
+  .cv-block.active{ display:block; }
+
+  .banner{
     border:1px solid var(--line);
     background:var(--soft);
     border-radius:12px;
     padding:14px 16px;
-    margin-bottom:16px;
+    margin:0 0 16px;
     text-align:center;
   }
-  .lang-banner h2{
-    margin:0;
-    font-size:18px;
-  }
-  .lang-banner p{
-    margin:6px 0 0;
-    color:var(--muted);
-    font-size:13px;
-  }
+  .banner h2{ margin:0; font-size:18px; }
+  .banner p{ margin:6px 0 0; color:var(--muted); font-size:13px; }
 
   section{
-    background:var(--card);
     border:1px solid var(--line);
     border-radius:12px;
     padding:16px;
     margin:0 0 16px;
+    background:#fff;
   }
-
   section h2{
-    font-size:16px;
     margin:0 0 10px;
     padding-bottom:10px;
     border-bottom:1px solid var(--line);
-    letter-spacing:0.2px;
+    font-size:16px;
   }
 
-  /* Fix semantics: h3 should not be inside ul */
   .year{
     margin:14px 0 6px;
     font-size:14px;
@@ -141,36 +131,21 @@
     font-weight:700;
   }
 
-  ul{
-    margin:8px 0 0 18px;
-    padding:0;
-  }
+  ul{ margin:8px 0 0 18px; padding:0; }
   li{ margin:6px 0; }
-
-  .divider{
-    height:1px;
-    background:var(--line);
-    margin:22px 0;
-  }
 
   footer{
     max-width:1100px;
     margin:16px auto 0;
+    padding:0 20px 24px;
     color:var(--muted);
     text-align:center;
     font-size:12px;
   }
 
-  /* Mobile */
-  @media (max-width: 900px){
-    body{ padding:16px; }
-    .page{
-      grid-template-columns: 1fr;
-    }
-    header{
-      position:relative;
-      top:auto;
-    }
+  @media (max-width:900px){
+    .page{ grid-template-columns: 1fr; }
+    .sidebar{ position:relative; height:auto; }
   }
 </style>
 </head>
@@ -179,220 +154,224 @@
 
 <div class="page">
 
-  <!-- LEFT: Scholar-like profile card -->
-  <header id="english">
-    <img src="profile.jpg" alt="프로필 사진">
-    <h1>배소혜 (Bae, Sohye), PhD</h1>
-    <p>관광학 (Tourism Management)</p>
-
-    <div class="quick-links">
-      <a class="pill" href="#korean">▼ Go to Korean version</a>
-      <a class="pill" href="#publications-en">Publications</a>
-      <a class="pill" href="#projects-en">Projects</a>
-      <a class="pill" href="#awards-en">Awards</a>
-    </div>
-  </header>
-
-  <!-- RIGHT: Main content -->
-  <main>
-
-    <div class="lang-banner">
-      <h2>English</h2>
-      <p>English version of the CV.</p>
+  <aside class="sidebar">
+    <div class="profile">
+      <img src="profile.jpg" alt="프로필 사진">
+      <h1>배소혜 (Bae, Sohye), PhD</h1>
+      <p>관광학 (Tourism Management)</p>
     </div>
 
-    <section id="publications-en">
-      <h2>PUBLICATIONS (17 KCI)</h2>
+    <nav class="nav">
+      <a href="#" class="tab-link active" data-target="en">English version</a>
+      <a href="#pub-en" class="section-link" data-scope="en">Publications</a>
+      <a href="#proj-en" class="section-link" data-scope="en">Projects</a>
+      <a href="#awards-en" class="section-link" data-scope="en">Awards</a>
+      <a href="#" class="tab-link" data-target="ko">Korean version</a>
+    </nav>
+  </aside>
 
-      <div class="year">2026</div>
-      <ul>
-        <li>17. From Viewing to Buying: How Viewer Attitudes and Para-Social Bonds Drive Short Food Content Purchase Intentions. <i>Culinary Science & Hospitality Research</i>, 32(02), forthcoming. (KCI)</li>
-      </ul>
+  <main class="content">
 
-      <div class="year">2025</div>
-      <ul>
-        <li>16. Bae, S. H., &amp; Park, G. G. (2025). The Effects of Consumers’ Perceptions of ESG Management in Foodservice Franchises on Reuse Intention: An Ordered Probit Analysis. <i>Culinary Science &amp; Hospitality Research</i>, 31(12), 243-254. (KCI)</li>
-        <li>15. Bae, S., &amp; Park, G. (2025). An Ordered Probit Analysis of the Factors Influencing Relationships among Cultural Heritage Tourism Motivation, Constraints, and Attitudes. <i>FoodService Industry Journal</i>, 21(6), 431-454. (KCI)</li>
-        <li>14. Bae, S., &amp; Kim, I. (2025). Comparative Analysis of Foreign Consumers’ Perceptions of K-Food Emotions: Focusing on Reddit Cases. <i>The Journal of Internet Electronic Commerce Resarch</i>, 25(5), 121-131. (KCI)</li>
-        <li>13. Lee, S., Bae, S., &amp; Kim, I. (2025). Exploring formation process of willingness to accept online personalised advertising for travel products: The effects of online customised advertising characteristics and past tourism memory. <i>The e-Business Studies</i>, 26(2), 109-125. (KCI)</li>
-        <li>12. Nam, J. H., Bae, S. H., &amp; Kwon, E. K. (2025). The impact of senior tourists’ travel agency package tour experiences on travel satisfaction, trust, and intention to pay premium: Focusing on experiential economic theory. <i>Journal of Tourism Enhancement</i>, 129–148. (KCI)</li>
-        <li>11. Yoon, H., Bae, S., &amp; Park, E. (2025). Effects of Experiential Economic Factors on Emotional Attachment and Pro-Environmental Behavior Among Nature-based Walking Tourists: The Moderating Effect of Pro-Environmental Identity. <i>Journal of Tourism Enhancement</i>, 13(1), 91-111. (KCI)</li>
-      </ul>
+    <!-- ===================== ENGLISH ===================== -->
+    <div id="en" class="cv-block active">
 
-      <div class="year">2024</div>
-      <ul>
-        <li>10. Bae, S., &amp; Kim, I. (2024). Social Perception and Activation Strategies of Templestay - A Big Data Analysis of ‘Surfing Templestay, Dangplestay, and Naneun Jeollo’ -. <i>FoodService Industry Journal</i>, 20(6), 275-288. (KCI)</li>
-        <li>9. Kim, I., &amp; Bae, S. (2024). The Effects of Motivation for Open-Kitchen Restaurants Adopting Robot Chefs on Consumer Attitude, Intentions to Use, and Word-of-Mouth - The Moderating Role of Alternative Attractiveness -. <i>FoodService Industry Journal</i>, 20(6), 383-397. (KCI)</li>
-        <li>8. Park, E. H., Bae, S., &amp; Kim, I. (2024). Exploring motivations influencing customers’ attitudes toward using reusable cups in eco-friendly coffee shops. <i>Journal of Tourism Enhancement</i>, 167-184.</li>
-        <li>7. Kim, Y., Bae, S., &amp; Kim, I. (2024). Effects of Robotic Chefs’ Food Quality Prediction and Personal Innovativeness on Consumer Attitudes and Intention to Visit the Restaurant. <i>Journal of Tourism Enhancement</i>, 12(3), 27-42. (KCI)</li>
-        <li>6. Bae, S., Kim, J., Kim, D., &amp; Kim, I. (2024). Investigating benefits of operating shared kitchen for virtual restaurants: from the small-business owner perspectives. <i>Journal of Hospitality and Tourism Studies</i>, 26(4), 193-204. (KCI)</li>
-        <li>5. Kang, S. R., Han, S. H., Bae, S. H., &amp; Yoon, Y. H. (2024). The effect of serving robots on attitude and behavioural intention of restaurant customers: Focused on UTAUT2 and moderating effect of shyness. <i>Korean Journal of Franchise Management</i>, 15(2), 57–75. (KCI)</li>
-        <li>4. Bae, S., &amp; Kim, I. (2024). Investigating barriers hindering attitude formation towards reusable cup usage in the coffee shop industry. <i>FoodService Industry Journal</i>, 20(3), 119-131. (KCI)</li>
-        <li>3. Bae, S., &amp; Kim, I. (2024). Exploring the structure of motivations, benefits and values of walking travel experience sharing on social media. <i>Journal of Hospitality and Tourism Studies</i>, 26(2), 65-79. (KCI)</li>
-      </ul>
+      <div class="banner">
+        <h2>English</h2>
+        <p>English version of the CV.</p>
+      </div>
 
-      <div class="year">2023</div>
-      <ul>
-        <li>2. Bae, S., Park, H., Kang, S., &amp; Han, S. (2023). How Usage Motivation Regarding Serving Robots affect Customer Attitudes and Intent to Revisit Restaurants. <i>FoodService Industry Journal</i>, 19(6), 281-295. (KCI)</li>
-      </ul>
+      <section id="pub-en">
+        <h2>PUBLICATIONS (17 KCI)</h2>
 
-      <div class="year">2022</div>
-      <ul>
-        <li>1. Bae, S., &amp; Kim, I. (2022). Importance-satisfaction Analysis for Campsite Selection Attributes after COVID-19 Outbreak: Differences between Campers Depending on Frequency of Camping Experience. <i>Korean Journal of Hospitality &amp; Tourism</i>, 31(4), 127-145. (KCI)</li>
-      </ul>
-    </section>
+        <div class="year">2026</div>
+        <ul>
+          <li>17. From Viewing to Buying: How Viewer Attitudes and Para-Social Bonds Drive Short Food Content Purchase Intentions. <i>Culinary Science &amp; Hospitality Research</i>, 32(02), forthcoming. (KCI)</li>
+        </ul>
 
-    <section>
-      <h2>Papers under development and/or writing</h2>
-      <div class="year">AirStas Team 6</div>
-      <ul>
-        <li>26. Bae, S., Lee, H., Soeiro, J. D., Shin, H., Metzger, P., &amp; Kim, M. J. (2026a). Tentative title: Immersive recovery Through Space Tourism: An Experimental Study on Psychological and Physiological Responses, <i>Tourism Management</i>, under development (SSCI, Q1).</li>
-        <li>27. Lee, H., Bae, S., Soeiro, J. D., Shin, H., Metzger, P., &amp; Kim, M. J. (2026b). Tentative title: Does Microgravity-like VR Recalibrate Risk? Evidence from Underwater vs. Ground VR for Space Tourism, <i>Annals of Tourism Research</i>, under development (SSCI, Q1).</li>
-        <li>28. Park, G., Bae, S., Lee, H., Soeiro, J. D., Metzger, P., &amp; Kim, M. J. (2026c). Tentative title: Estimating Consumer Preferences for Space Tourism Experiences: Sensation Seeking, Need for Uniqueness, and Willingness to Pay, <i>Journal of Travel Research</i>, under development (SSCI, Q1).</li>
-      </ul>
+        <div class="year">2025</div>
+        <ul>
+          <li>16. Bae, S. H., &amp; Park, G. G. (2025). The Effects of Consumers’ Perceptions of ESG Management in Foodservice Franchises on Reuse Intention: An Ordered Probit Analysis. <i>Culinary Science &amp; Hospitality Research</i>, 31(12), 243-254. (KCI)</li>
+          <li>15. Bae, S., &amp; Park, G. (2025). An Ordered Probit Analysis of the Factors Influencing Relationships among Cultural Heritage Tourism Motivation, Constraints, and Attitudes. <i>FoodService Industry Journal</i>, 21(6), 431-454. (KCI)</li>
+          <li>14. Bae, S., &amp; Kim, I. (2025). Comparative Analysis of Foreign Consumers’ Perceptions of K-Food Emotions: Focusing on Reddit Cases. <i>The Journal of Internet Electronic Commerce Resarch</i>, 25(5), 121-131. (KCI)</li>
+          <li>13. Lee, S., Bae, S., &amp; Kim, I. (2025). Exploring formation process of willingness to accept online personalized advertising for travel products: The effects of online customized advertising characteristics and past tourism memory. <i>The e-Business Studies</i>, 26(2), 109-125. (KCI)</li>
+          <li>12. Nam, J. H., Bae, S. H., &amp; Kwon, E. K. (2025). The impact of senior tourists’ travel agency package tour experiences on travel satisfaction, trust, and intention to pay premium: Focusing on experiential economic theory. <i>Journal of Tourism Enhancement</i>, 129–148. (KCI)</li>
+          <li>11. Yoon, H., Bae, S., &amp; Park, E. (2025). Effects of Experiential Economic Factors on Emotional Attachment and Pro-Environmental Behavior Among Nature-based Walking Tourists: The Moderating Effect of Pro-Environmental Identity. <i>Journal of Tourism Enhancement</i>, 13(1), 91-111. (KCI)</li>
+        </ul>
 
-      <div class="year">AirStas Team 7</div>
-      <ul>
-        <li>1. Bae, S., Choi, H., Kim, N., Petrick, J. F., &amp; Kim, M. J. (2026). Tentative title: Space Flight Experience Interview, <i>Annals of Tourism Research</i>, under development (SSCI, Q1).</li>
-        <li>2. Choi, H., Bae, S., Kim, N., Petrick, J. F., &amp; Kim, M. J. (2026). Tentative title: Affective and Emotional Experiences of Space Tourists in Isolated Space Environments, <i>Tourism Management</i>, under development (SSCI, Q1).</li>
-      </ul>
+        <div class="year">2024</div>
+        <ul>
+          <li>10. Bae, S., &amp; Kim, I. (2024). Social Perception and Activation Strategies of Templestay - A Big Data Analysis of ‘Surfing Templestay, Dangplestay, and Naneun Jeollo’ -. <i>FoodService Industry Journal</i>, 20(6), 275-288. (KCI)</li>
+          <li>9. Kim, I., &amp; Bae, S. (2024). The Effects of Motivation for Open-Kitchen Restaurants Adopting Robot Chefs on Consumer Attitude, Intentions to Use, and Word-of-Mouth - The Moderating Role of Alternative Attractiveness -. <i>FoodService Industry Journal</i>, 20(6), 383-397. (KCI)</li>
+          <li>8. Park, E. H., Bae, S., &amp; Kim, I. (2024). Exploring motivations influencing customers’ attitudes toward using reusable cups in eco-friendly coffee shops. <i>Journal of Tourism Enhancement</i>, 167-184.</li>
+          <li>7. Kim, Y., Bae, S., &amp; Kim, I. (2024). Effects of Robotic Chefs’ Food Quality Prediction and Personal Innovativeness on Consumer Attitudes and Intention to Visit the Restaurant. <i>Journal of Tourism Enhancement</i>, 12(3), 27-42. (KCI)</li>
+          <li>6. Bae, S., Kim, J., Kim, D., &amp; Kim, I. (2024). Investigating benefits of operating shared kitchen for virtual restaurants: from the small-business owner perspectives. <i>Journal of Hospitality and Tourism Studies</i>, 26(4), 193-204. (KCI)</li>
+          <li>5. Kang, S. R., Han, S. H., Bae, S. H., &amp; Yoon, Y. H. (2024). The effect of serving robots on attitude and behavioural intention of restaurant customers: Focused on UTAUT2 and moderating effect of shyness. <i>Korean Journal of Franchise Management</i>, 15(2), 57–75. (KCI)</li>
+          <li>4. Bae, S., &amp; Kim, I. (2024). Investigating barriers hindering attitude formation towards reusable cup usage in the coffee shop industry. <i>FoodService Industry Journal</i>, 20(3), 119-131. (KCI)</li>
+          <li>3. Bae, S., &amp; Kim, I. (2024). Exploring the structure of motivations, benefits and values of walking travel experience sharing on social media. <i>Journal of Hospitality and Tourism Studies</i>, 26(2), 65-79. (KCI)</li>
+        </ul>
 
-      <div class="year">AirStas Team 9</div>
-      <ul>
-        <li>32. Lee, H., Lim, W. M., Bae, S., Hong, M., &amp; Kim, M. J. (2026a). Tentative title: Space tourism bibliometric analysis: Business ecosystem &amp; strategic management, tentative target journal: <i>Tourism Management</i>, under development (SSCI, Q1).</li>
-        <li>33. Bae, S., Lim, W. M., Lee, H., Hong, M., &amp; Kim, M. J. (2026b). Tentative title: Space tourism bibliometric analysis: Sustainability, ethics &amp; corporate social responsibility, tentative target journal: <i>Annals of Tourism Research</i>, under development (SSCI, Q1).</li>
-        <li>34. Hong, M., Lim, W. M., Lee, H., Bae, S., &amp; Kim, M. J. (2026c). Tentative title: Space tourism bibliometric analysis: Risk, regulation &amp; policy challenges, tentative target journal: <i>Journal of Travel Research</i>, under development (SSCI, Q1).</li>
-      </ul>
-    </section>
+        <div class="year">2023</div>
+        <ul>
+          <li>2. Bae, S., Park, H., Kang, S., &amp; Han, S. (2023). How Usage Motivation Regarding Serving Robots affect Customer Attitudes and Intent to Revisit Restaurants. <i>FoodService Industry Journal</i>, 19(6), 281-295. (KCI)</li>
+        </ul>
 
-    <section id="projects-en">
-      <h2>Research &amp; Consulting Projects</h2>
-      <ul>
-        <li>Development of the Haeundae Core Cultural Tourism Belt, Haeundae District Office, Busan Metropolitan City, 2025.</li>
-        <li>Establishment of the Banyeo–Bansong Development Master Plan, Haeundae District Office, Busan Metropolitan City, 2025.</li>
-        <li>Evaluation and Revitalisation Strategies for Tourism Development Projects: Final Comprehensive Report, Ministry of Culture, Sports and Tourism, Republic of Korea, 2019.</li>
-      </ul>
-    </section>
+        <div class="year">2022</div>
+        <ul>
+          <li>1. Bae, S., &amp; Kim, I. (2022). Importance-satisfaction Analysis for Campsite Selection Attributes after COVID-19 Outbreak: Differences between Campers Depending on Frequency of Camping Experience. <i>Korean Journal of Hospitality &amp; Tourism</i>, 31(4), 127-145. (KCI)</li>
+        </ul>
+      </section>
 
-    <section id="awards-en">
-      <h2>AWARDS</h2>
-      <ul>
-        <li>24 February 2026 – Presidential Commendation, Jeju · AWS Global Space Challenge Hackathon, Jeju Halla University.</li>
-        <li>20 November 2025 – Youth Volunteer Corps Award (President’s Commendation), Busan Economic Promotion Agency.</li>
-        <li>23 January 2025 – PNU-Star Award (President’s Commendation), Pusan National University.</li>
-        <li>15 January 2025 – Best Paper Award, The 97th TOSOK International Tourism Conference, Tourism Sciences Society of Korea (TOSOK).</li>
-        <li>17 December 2024 – Excellent Paper Award, The 40th Conference of the Korean Foodservice Industry Association.</li>
-        <li>4 December 2024 – Excellent Paper Award (Encouragement Prize; Mayor’s Commendation), The 7th “Refuge Capital Busan” Academic Paper Competition, Busan Metropolitan City.</li>
-        <li>25 June 2022 – Excellent Paper Award, The 35th Conference of the Korean Foodservice Industry Association.</li>
-      </ul>
-    </section>
+      <section>
+        <h2>Papers under the development and/or writing</h2>
+        <div class="year">AirStas Team 6</div>
+        <ul>
+          <li>26. Bae, S., Lee, H., Soeiro, J. D., Shin, H., Metzger, P., &amp; Kim, M. J. (2026a). Tentative title: Immersive recovery Through Space Tourism: An Experimental Study on Psychological and Physiological Responses, <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
+          <li>27. Lee, H., Bae, S., Soeiro, J. D., Shin, H., Metzger, P., &amp; Kim, M. J. (2026b). Tentative title: Does Microgravity-like VR Recalibrate Risk? Evidence from Underwater vs. Ground VR for Space Tourism, <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
+          <li>28. Park, G., Bae, S., Lee, H., Soeiro, J. D., Metzger, P., &amp; Kim, M. J. (2026c). Tentative title: Estimating Consumer Preferences for Space Tourism Experiences: Sensation Seeking, Need for Uniqueness, and Willingness to Pay, <i>Journal of Travel Research</i>, Under the development (SSCI, Q1).</li>
+        </ul>
 
-    <section>
-      <h2>Professional Training &amp; Certification</h2>
-      <ul>
-        <li>2026 Jeju RISE · AWS Global Space Bootcamp (23 December 2025 – 4 February 2026) Amazon Web Services (AWS) Korea.</li>
-        <li>Practical Artificial Intelligence Project Programme, 12 September 2022.</li>
-      </ul>
-    </section>
+        <div class="year">AirStas Team 7</div>
+        <ul>
+          <li>1. Bae, S., Choi, H., Kim, N., Petrick, J. F., &amp; Kim, M. J. (2026). Tentative title: Space Flight Experience Interview, <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
+          <li>2. Choi, H., Bae, S., Kim, N., Petrick, J. F., &amp; Kim, M. J. (2026). Tentative title: Affective and Emotional Experiences of Space Tourists in Isolated Space Environments, <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
+        </ul>
 
-    <section>
-      <h2>Additional Activities</h2>
-      <ul>
-        <li>Honorary Correspondent, Happy Education (Ministry of Education, Republic of Korea), 15 January 2025 – Present.</li>
-        <li>Honorary Correspondent, With Together Magazine, Korea Differently Abled People’s Rights Advocacy Institute, 15 January 2025 – Present.</li>
-      </ul>
-    </section>
+        <div class="year">AirStas Team 9</div>
+        <ul>
+          <li>32. Lee, H., Lim, W. M., Bae, S., Hong, M., &amp; Kim, M. J. (2026a). Tentative title: Space tourism bibliometric analysis: Business ecosystem &amp; strategic management, Tentative target journal: <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
+          <li>33. Bae, S., Lim, W. M., Lee, H., Hong, M., &amp; Kim, M. J. (2026b). Tentative title: Space tourism bibliometric analysis: Sustainability, ethics &amp; corporate social responsibility, Tentative target journal: <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
+          <li>34. Hong, M., Lim, W. M., Lee, H., Bae, S., &amp; Kim, M. J. (2026c). Tentative title: Space tourism bibliometric analysis: Risk, regulation &amp; policy challenges, Tentative target journal: <i>Journal of Travel Research</i>, Under the development (SSCI, Q1).</li>
+        </ul>
+      </section>
 
-    <div class="divider"></div>
+      <section id="proj-en">
+        <h2>Research &amp; Consulting Projects</h2>
+        <ul>
+          <li>Development of the Haeundae Core Cultural Tourism Belt, Haeundae District Office, Busan Metropolitan City, 2025.</li>
+          <li>Establishment of the Banyeo–Bansong Development Master Plan, Haeundae District Office, Busan Metropolitan City, 2025.</li>
+          <li>Evaluation and Revitalisation Strategies for Tourism Development Projects: Final Comprehensive Report, Ministry of Culture, Sports and Tourism, Republic of Korea, 2019.</li>
+        </ul>
+      </section>
 
-    <!-- Korean banner + back link -->
-    <div id="korean" class="lang-banner">
-      <h2>한국어 (Korean)</h2>
-      <p>Korean version of the CV.</p>
-      <p style="margin-top:10px;">
-        <a class="pill" href="#english">▲ Go to English version</a>
-      </p>
+      <section id="awards-en">
+        <h2>AWARDS</h2>
+        <ul>
+          <li>24 February 2026 – Presidential Commendation, Jeju · AWS Global Space Challenge Hackathon, Jeju Halla University.</li>
+          <li>20 November 2025 – Youth Volunteer Corps Award (President’s Commendation), Busan Economic Promotion Agency.</li>
+          <li>23 January 2025 – PNU-Star Award (President’s Commendation), Pusan National University.</li>
+          <li>15 January 2025 – Best Paper Award, The 97th TOSOK International Tourism Conference, Tourism Sciences Society of Korea (TOSOK).</li>
+          <li>17 December 2024 – Excellent Paper Award, The 40th Conference of the Korean Foodservice Industry Association.</li>
+          <li>4 December 2024 – Excellent Paper Award (Encouragement Prize; Mayor’s Commendation), The 7th “Refuge Capital Busan” Academic Paper Competition, Busan Metropolitan City.</li>
+          <li>25 June 2022 – Excellent Paper Award, The 35th Conference of the Korean Foodservice Industry Association.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Professional Training &amp; Certification</h2>
+        <ul>
+          <li>2026 Jeju RISE · AWS Global Space Bootcamp (23 December 2025 – 4 February 2026) Amazon Web Services (AWS) Korea.</li>
+          <li>Practical Artificial Intelligence Project Programme, 12 September 2022.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Additional Activities</h2>
+        <ul>
+          <li>Honorary Correspondent, Happy Education (Ministry of Education, Republic of Korea), 15 January 2025 – Present.</li>
+          <li>Honorary Correspondent, With Together Magazine, Korea Differently Abled People’s Rights Advocacy Institute, 15 January 2025 – Present.</li>
+        </ul>
+      </section>
+
     </div>
 
-    <!-- Korean sections -->
-    <section>
-      <h2>연구 실적 (17 KCI)</h2>
+    <!-- ===================== KOREAN ===================== -->
+    <div id="ko" class="cv-block">
 
-      <div class="year">2026</div>
-      <ul>
-        <li>17. From Viewing to Buying: How Viewer Attitudes and Para-Social Bonds Drive Short Food Content Purchase Intentions. <i>Culinary Science &amp; Hospitality Research</i>, 32(02), 미정</li>
-      </ul>
+      <div class="banner">
+        <h2>한국어 (Korean)</h2>
+        <p>Korean version of the CV.</p>
+      </div>
 
-      <div class="year">2025</div>
-      <ul>
-        <li>16. 외식 프랜차이즈 ESG경영 인식이 브랜드 만족 및 충성도 형성에 미치는 영향: 서열형 프로빗 분석, <i>Culinary Science &amp; Hospitality Research</i>, 31(12), 431-454.</li>
-        <li>15. 서열형 프로빗 모형을 적용한 문화유산 관광동기, 관광제약 및 태도 간의 영향 요인 분석. <i>한국외식산업학회지</i>, 21(6), 431-454.</li>
-        <li>14. Comparative Analysis of Foreign Consumers’ Perceptions of Korean Food Emotions: Focusing on Reddit Cases, <i>인터넷전자상거래연구</i>, 25(5), 121-131.</li>
-        <li>13. 여행상품 온라인 맞춤형 광고 수용의도 형성 과정 탐색: 온라인 맞춤형 광고 특성 및 과거 관광기억의 효과. <i>e-비즈니스연구</i>, 26(2), 109-125.</li>
-        <li>12. 시니어 관광객의 여행사 패키지 투어 체험이 여행 만족, 신뢰 및 프리미엄 지불 의사에 미치는 영향: 체험경제이론을 중심으로. <i>관광진흥연구</i>, 13(10), 129-148.</li>
-        <li>11. 자연길 도보관광객의 체험경제요소가 감정적 애착과 친환경 행동에 미치는 영향: 친환경 정체성 조절효과. <i>관광진흥연구</i>, 13(1), 91-111.</li>
-      </ul>
+      <section>
+        <h2>연구 실적 (17 KCI)</h2>
 
-      <div class="year">2024</div>
-      <ul>
-        <li>10. 템플스테이의 사회적 인식과 활성화 전략 - ‘서핑 템플스테이, 댕플스테이, 나는 절로’의 빅데이터 분석을 중심으로-. <i>한국외식산업학회지</i>, 20(6), 275-288.</li>
-        <li>9. 오픈키친 레스토랑의 로봇 셰프 이용동기가 소비자 태도, 이용의도 및 구전의도에 미치는 효과-대안매력의 조절효과. <i>한국외식산업학회지</i>, 20(6), 383-397.</li>
-        <li>8. 커피숍 에코매장에서 다회용 컵 사용에 대한 고객의 태도 형성에 미치는 동기요인 탐색. <i>관광진흥연구</i>, 특집호-호스피탈리티·외식분과, 167-184.</li>
-        <li>7. 로봇셰프 조리 음식의 품질 기대와 개인의 혁신성이 소비자 태도와 레스토랑 방문 의도에 미치는 영향. <i>관광진흥연구</i>, 12(3), 27-42.</li>
-        <li>6. 가상공간 레스토랑의 공유주방 운영에 대한 혜택 고찰: 소상공인 운영자 관점에서. <i>호텔관광연구</i>, 26(4), 193-204.</li>
-        <li>5. 서빙로봇이 레스토랑 이용고객의 태도 및 행동의도에 미치는 영향. <i>한국프랜차이즈경영연구</i>, 15(2), 56-74.</li>
-        <li>4. 커피숍 다회용 컵 사용에 대한 태도 형성을 저해하는 사용 장벽 분석. <i>한국외식산업학회지</i>, 20(3), 119-131.</li>
-        <li>3. 소셜 미디어에 걷기여행경험 공유 행동에 대한 동기, 혜택 및 가치 구조 고찰. <i>호텔관광연구</i>, 26(2), 65-79.</li>
-      </ul>
+        <div class="year">2026</div>
+        <ul>
+          <li>17. From Viewing to Buying: How Viewer Attitudes and Para-Social Bonds Drive Short Food Content Purchase Intentions. <i>Culinary Science &amp; Hospitality Research</i>, 32(02), 미정</li>
+        </ul>
 
-      <div class="year">2023</div>
-      <ul>
-        <li>2. 레스토랑에서의 서빙로봇 이용 동기가 태도와 재방문 의도에 미치는 영향. <i>한국외식산업학회지</i>, 19(6), 281-295.</li>
-      </ul>
+        <div class="year">2025</div>
+        <ul>
+          <li>16. 외식 프랜차이즈 ESG경영 인식이 브랜드 만족 및 충성도 형성에 미치는 영향: 서열형 프로빗 분석, <i>Culinary Science &amp; Hospitality Research</i>, 31(12), 431-454.</li>
+          <li>15. 서열형 프로빗 모형을 적용한 문화유산 관광동기, 관광제약 및 태도 간의 영향 요인 분석. <i>한국외식산업학회지</i>, 21(6), 431-454.</li>
+          <li>14. Comparative Analysis of Foreign Consumers’ Perceptions of Korean Food Emotions: Focusing on Reddit Cases, <i>인터넷전자상거래연구</i>, 25(5), 121-131.</li>
+          <li>13. 여행상품 온라인 맞춤형 광고 수용의도 형성 과정 탐색: 온라인 맞춤형 광고 특성 및 과거 관광기억의 효과. <i>e-비즈니스연구</i>, 26(2), 109-125.</li>
+          <li>12. 시니어 관광객의 여행사 패키지 투어 체험이 여행 만족, 신뢰 및 프리미엄 지불 의사에 미치는 영향: 체험경제이론을 중심으로. <i>관광진흥연구</i>, 13(10), 129-148.</li>
+          <li>11. 자연길 도보관광객의 체험경제요소가 감정적 애착과 친환경 행동에 미치는 영향: 친환경 정체성 조절효과. <i>관광진흥연구</i>, 13(1), 91-111.</li>
+        </ul>
 
-      <div class="year">2022</div>
-      <ul>
-        <li>1. 코로나 19 발생 이후 캠핑장 선택속성의 중요도-만족도 분석: 캠핑경험 빈도에 따른 차이. <i>호텔경영학연구</i>, 31(4), 127-145.</li>
-      </ul>
-    </section>
+        <div class="year">2024</div>
+        <ul>
+          <li>10. 템플스테이의 사회적 인식과 활성화 전략 - ‘서핑 템플스테이, 댕플스테이, 나는 절로’의 빅데이터 분석을 중심으로-. <i>한국외식산업학회지</i>, 20(6), 275-288.</li>
+          <li>9. 오픈키친 레스토랑의 로봇 셰프 이용동기가 소비자 태도, 이용의도 및 구전의도에 미치는 효과-대안매력의 조절효과. <i>한국외식산업학회지</i>, 20(6), 383-397.</li>
+          <li>8. 커피숍 에코매장에서 다회용 컵 사용에 대한 고객의 태도 형성에 미치는 동기요인 탐색. <i>관광진흥연구</i>, 특집호-호스피탈리티·외식분과, 167-184.</li>
+          <li>7. 로봇셰프 조리 음식의 품질 기대와 개인의 혁신성이 소비자 태도와 레스토랑 방문 의도에 미치는 영향. <i>관광진흥연구</i>, 12(3), 27-42.</li>
+          <li>6. 가상공간 레스토랑의 공유주방 운영에 대한 혜택 고찰: 소상공인 운영자 관점에서. <i>호텔관광연구</i>, 26(4), 193-204.</li>
+          <li>5. 서빙로봇이 레스토랑 이용고객의 태도 및 행동의도에 미치는 영향. <i>한국프랜차이즈경영연구</i>, 15(2), 56-74.</li>
+          <li>4. 커피숍 다회용 컵 사용에 대한 태도 형성을 저해하는 사용 장벽 분석. <i>한국외식산업학회지</i>, 20(3), 119-131.</li>
+          <li>3. 소셜 미디어에 걷기여행경험 공유 행동에 대한 동기, 혜택 및 가치 구조 고찰. <i>호텔관광연구</i>, 26(2), 65-79.</li>
+        </ul>
 
-    <section>
-      <h2>용역 실적</h2>
-      <ul>
-        <li>해운대 핵심 문화관광벨트 조성 용역, 부산시 해운대구청, 2025</li>
-        <li>반여·반송 발전 마스터플랜 수립 용역, 부산시 해운대구청, 2025</li>
-        <li>관광지등 조성사업 평가 및 활성화 방안: 총괄보고서, 문화체육관광부, 2019</li>
-      </ul>
-    </section>
+        <div class="year">2023</div>
+        <ul>
+          <li>2. 레스토랑에서의 서빙로봇 이용 동기가 태도와 재방문 의도에 미치는 영향. <i>한국외식산업학회지</i>, 19(6), 281-295.</li>
+        </ul>
 
-    <section>
-      <h2>수상 실적</h2>
-      <ul>
-        <li>2026.02.24. 제주·AWS 글로벌 스페이스 챌린지 해커톤 (제주한라대학교 총장 표창) | 제주한라대학교</li>
-        <li>2025.11.20. 2025년 청년봉사단 표창장 (부산경제진흥원 원장 표창) | 부산경제진흥원</li>
-        <li>2025.01.23. 2024학년도 PNU-Star (부산대학교 총장 표창) | 부산대학교</li>
-        <li>2025.01.15. The 97th TOSOK International Tourism conference, Best Paper Award | 한국관광학회</li>
-        <li>2024.12.17. 제40차 한국외식산업학회, 우수논문상 | 한국외식산업학회</li>
-        <li>2024.12.04. 제7회 피란수도 부산 논문공모전, 전문연구자 분야 우수논문상(장려상, 부산시장 표창) | 부산광역시</li>
-        <li>2022.06.25. 제35차 한국외식산업학회, 우수논문상 | 한국외식산업학회</li>
-      </ul>
-    </section>
+        <div class="year">2022</div>
+        <ul>
+          <li>1. 코로나 19 발생 이후 캠핑장 선택속성의 중요도-만족도 분석: 캠핑경험 빈도에 따른 차이. <i>호텔경영학연구</i>, 31(4), 127-145.</li>
+        </ul>
+      </section>
 
-    <section>
-      <h2>교육 수료</h2>
-      <ul>
-        <li>2026 제주 RISE·AWS 글로벌 스페이스 부트캠프 (2025.12.23.-2026.02.04.) | 아마존웹서비스 코리아</li>
-        <li>2022 실전형 인공지능 프로젝트 과정 (2022.09.12.)</li>
-      </ul>
-    </section>
+      <section>
+        <h2>용역 실적</h2>
+        <ul>
+          <li>해운대 핵심 문화관광벨트 조성 용역, 부산시 해운대구청, 2025</li>
+          <li>반여·반송 발전 마스터플랜 수립 용역, 부산시 해운대구청, 2025</li>
+          <li>관광지등 조성사업 평가 및 활성화 방안: 총괄보고서, 문화체육관광부, 2019</li>
+        </ul>
+      </section>
 
-    <section>
-      <h2>기타 실적</h2>
-      <ul>
-        <li>교육부 행복한교육 명예기자, 2025.01.15.~현재</li>
-        <li>(사)장애우권익문제연구소 함께걸음 명예기자, 2025.01.15.~현재</li>
-      </ul>
-    </section>
+      <section>
+        <h2>수상 실적</h2>
+        <ul>
+          <li>2026.02.24. 제주·AWS 글로벌 스페이스 챌린지 해커톤 (제주한라대학교 총장 표창) | 제주한라대학교</li>
+          <li>2025.11.20. 2025년 청년봉사단 표창장 (부산경제진흥원 원장 표창) | 부산경제진흥원</li>
+          <li>2025.01.23. 2024학년도 PNU-Star (부산대학교 총장 표창) | 부산대학교</li>
+          <li>2025.01.15. The 97th TOSOK International Tourism conference, Best Paper Award | 한국관광학회</li>
+          <li>2024.12.17. 제40차 한국외식산업학회, 우수논문상 | 한국외식산업학회</li>
+          <li>2024.12.04. 제7회 피란수도 부산 논문공모전, 전문연구자 분야 우수논문상(장려상, 부산시장 표창) | 부산광역시</li>
+          <li>2022.06.25. 제35차 한국외식산업학회, 우수논문상 | 한국외식산업학회</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>교육 수료</h2>
+        <ul>
+          <li>2026 제주 RISE·AWS 글로벌 스페이스 부트캠프 (2025.12.23.-2026.02.04.) | 아마존웹서비스 코리아</li>
+          <li>2022 실전형 인공지능 프로젝트 과정 (2022.09.12.)</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>기타 실적</h2>
+        <ul>
+          <li>교육부 행복한교육 명예기자, 2025.01.15.~현재</li>
+          <li>(사)장애우권익문제연구소 함께걸음 명예기자, 2025.01.15.~현재</li>
+        </ul>
+      </section>
+
+    </div>
 
   </main>
 </div>
@@ -400,6 +379,35 @@
 <footer>
   <p>&copy; 2026. All rights reserved.</p>
 </footer>
+
+<script>
+  const tabLinks = document.querySelectorAll('.tab-link');
+  const blocks = document.querySelectorAll('.cv-block');
+  const sectionLinks = document.querySelectorAll('.section-link');
+
+  function setActiveTab(targetId){
+    blocks.forEach(b => b.classList.toggle('active', b.id === targetId));
+    tabLinks.forEach(a => a.classList.toggle('active', a.dataset.target === targetId));
+
+    sectionLinks.forEach(l => {
+      const ok = (l.dataset.scope === targetId);
+      l.style.opacity = ok ? '1' : '0.45';
+      l.style.pointerEvents = ok ? 'auto' : 'none';
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      setActiveTab(link.dataset.target);
+    });
+  });
+
+  // Ensure English is default on load
+  setActiveTab('en');
+</script>
 
 </body>
 </html>

@@ -147,6 +147,67 @@
     .page{ grid-template-columns: 1fr; }
     .sidebar{ position:relative; height:auto; }
   }
+
+  /* Search highlight */
+  mark.hit{
+    background: #fff2a8;
+    padding: 0 2px;
+    border-radius: 3px;
+  }
+  mark.hit.current{
+    outline: 2px solid var(--accent);
+    box-shadow: 0 0 0 3px rgba(26,115,232,.15);
+  }
+  .search-box{
+    margin-top: 10px;
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+  }
+  .search-box label{
+    display:block;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .search-row{
+    display:flex;
+    gap:8px;
+  }
+  .search-row input{
+    flex:1;
+    padding: 10px 10px;
+    border-radius: 10px;
+    border:1px solid var(--line);
+    font-size: 14px;
+    outline:none;
+  }
+  .search-row input:focus{
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(26,115,232,.15);
+  }
+  .search-actions{
+    display:flex;
+    gap:6px;
+    margin-top: 8px;
+  }
+  .search-actions button{
+    flex:1;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border:1px solid var(--line);
+    background:#fff;
+    cursor:pointer;
+    font-size: 13px;
+  }
+  .search-actions button:hover{
+    background: var(--soft);
+  }
+  .search-meta{
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--muted);
+    text-align:center;
+  }
 </style>
 </head>
 
@@ -162,6 +223,19 @@
     </div>
 
     <nav class="nav">
+      <div class="search-box">
+        <label for="cvSearch">Search on this page</label>
+        <div class="search-row">
+          <input id="cvSearch" type="search" placeholder="e.g., VR, robot, ESG, space" autocomplete="off">
+        </div>
+        <div class="search-actions">
+          <button type="button" id="prevHit">Prev</button>
+          <button type="button" id="nextHit">Next</button>
+          <button type="button" id="clearHit">Clear</button>
+        </div>
+        <div class="search-meta" id="hitCount">0 results</div>
+      </div>
+
       <a href="#" class="tab-link active" data-target="en">English version</a>
       <a href="#pub-en" class="section-link" data-scope="en">Publications</a>
       <a href="#proj-en" class="section-link" data-scope="en">Projects</a>
@@ -225,22 +299,22 @@
         <h2>Papers under the development and/or writing</h2>
         <div class="year">AirStas Team 6</div>
         <ul>
-          <li>26. Bae, S., Lee, H., Soeiro, J. D., Shin, H., Metzger, P., &amp; Kim, M. J. (2026a). Tentative title: Immersive recovery Through Space Tourism: An Experimental Study on Psychological and Physiological Responses, <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
-          <li>27. Lee, H., Bae, S., Soeiro, J. D., Shin, H., Metzger, P., &amp; Kim, M. J. (2026b). Tentative title: Does Microgravity-like VR Recalibrate Risk? Evidence from Underwater vs. Ground VR for Space Tourism, <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
-          <li>28. Park, G., Bae, S., Lee, H., Soeiro, J. D., Metzger, P., &amp; Kim, M. J. (2026c). Tentative title: Estimating Consumer Preferences for Space Tourism Experiences: Sensation Seeking, Need for Uniqueness, and Willingness to Pay, <i>Journal of Travel Research</i>, Under the development (SSCI, Q1).</li>
+          <li>Bae, S., Lee, H., Soeiro, J. D., Shin, H., Metzger, P., &amp; Kim, M. J. (2026a). Tentative title: Immersive recovery Through Space Tourism: An Experimental Study on Psychological and Physiological Responses, <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
+          <li>Lee, H., Bae, S., Soeiro, J. D., Shin, H., Metzger, P., &amp; Kim, M. J. (2026b). Tentative title: Does Microgravity-like VR Recalibrate Risk? Evidence from Underwater vs. Ground VR for Space Tourism, <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
+          <li>Park, G., Bae, S., Lee, H., Soeiro, J. D., Metzger, P., &amp; Kim, M. J. (2026c). Tentative title: Estimating Consumer Preferences for Space Tourism Experiences: Sensation Seeking, Need for Uniqueness, and Willingness to Pay, <i>Journal of Travel Research</i>, Under the development (SSCI, Q1).</li>
         </ul>
 
         <div class="year">AirStas Team 7</div>
         <ul>
-          <li>1. Bae, S., Choi, H., Kim, N., Petrick, J. F., &amp; Kim, M. J. (2026). Tentative title: Space Flight Experience Interview, <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
-          <li>2. Choi, H., Bae, S., Kim, N., Petrick, J. F., &amp; Kim, M. J. (2026). Tentative title: Affective and Emotional Experiences of Space Tourists in Isolated Space Environments, <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
+          <li>Bae, S., Choi, H., Kim, N., Petrick, J. F., &amp; Kim, M. J. (2026). Tentative title: Space Flight Experience Interview, <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
+          <li>Choi, H., Bae, S., Kim, N., Petrick, J. F., &amp; Kim, M. J. (2026). Tentative title: Affective and Emotional Experiences of Space Tourists in Isolated Space Environments, <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
         </ul>
 
         <div class="year">AirStas Team 9</div>
         <ul>
-          <li>32. Lee, H., Lim, W. M., Bae, S., Hong, M., &amp; Kim, M. J. (2026a). Tentative title: Space tourism bibliometric analysis: Business ecosystem &amp; strategic management, Tentative target journal: <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
-          <li>33. Bae, S., Lim, W. M., Lee, H., Hong, M., &amp; Kim, M. J. (2026b). Tentative title: Space tourism bibliometric analysis: Sustainability, ethics &amp; corporate social responsibility, Tentative target journal: <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
-          <li>34. Hong, M., Lim, W. M., Lee, H., Bae, S., &amp; Kim, M. J. (2026c). Tentative title: Space tourism bibliometric analysis: Risk, regulation &amp; policy challenges, Tentative target journal: <i>Journal of Travel Research</i>, Under the development (SSCI, Q1).</li>
+          <li>Lee, H., Lim, W. M., Bae, S., Hong, M., &amp; Kim, M. J. (2026a). Tentative title: Space tourism bibliometric analysis: Business ecosystem &amp; strategic management, Tentative target journal: <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
+          <li>Bae, S., Lim, W. M., Lee, H., Hong, M., &amp; Kim, M. J. (2026b). Tentative title: Space tourism bibliometric analysis: Sustainability, ethics &amp; corporate social responsibility, Tentative target journal: <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
+          <li>Hong, M., Lim, W. M., Lee, H., Bae, S., &amp; Kim, M. J. (2026c). Tentative title: Space tourism bibliometric analysis: Risk, regulation &amp; policy challenges, Tentative target journal: <i>Journal of Travel Research</i>, Under the development (SSCI, Q1).</li>
         </ul>
       </section>
 
@@ -385,7 +459,173 @@
   const blocks = document.querySelectorAll('.cv-block');
   const sectionLinks = document.querySelectorAll('.section-link');
 
+  // ---- Search elements
+  const searchInput = document.getElementById('cvSearch');
+  const prevBtn = document.getElementById('prevHit');
+  const nextBtn = document.getElementById('nextHit');
+  const clearBtn = document.getElementById('clearHit');
+  const hitCountEl = document.getElementById('hitCount');
+
+  let currentHits = [];
+  let currentIndex = -1;
+  let activeScopeId = 'en'; // default
+
+  function getActiveContainer(){
+    return document.getElementById(activeScopeId);
+  }
+
+  function setHitCount(){
+    const n = currentHits.length;
+    if (!n) {
+      hitCountEl.textContent = '0 results';
+    } else {
+      hitCountEl.textContent = `${n} result${n === 1 ? '' : 's'} — ${currentIndex + 1}/${n}`;
+    }
+  }
+
+  function unwrapMarks(container){
+    const marks = container.querySelectorAll('mark.hit');
+    marks.forEach(m => {
+      const text = document.createTextNode(m.textContent);
+      m.replaceWith(text);
+    });
+    container.normalize();
+  }
+
+  function escapeRegExp(str){
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightAll(container, query){
+    unwrapMarks(container);
+    currentHits = [];
+    currentIndex = -1;
+
+    const q = query.trim();
+    if (!q){
+      setHitCount();
+      return;
+    }
+
+    const safe = escapeRegExp(q);
+    const re = new RegExp(safe, 'gi');
+
+    // Walk text nodes and wrap matches
+    const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, {
+      acceptNode(node){
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        const p = node.parentElement;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        const tag = p.tagName?.toLowerCase();
+        if (tag === 'script' || tag === 'style') return NodeFilter.FILTER_REJECT;
+        // Avoid highlighting inside the sidebar/nav even if nested (safety)
+        if (p.closest('.sidebar')) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+    textNodes.forEach(node => {
+      const text = node.nodeValue;
+      if (!re.test(text)) return;
+
+      re.lastIndex = 0;
+      const frag = document.createDocumentFragment();
+      let last = 0;
+      let m;
+
+      while ((m = re.exec(text)) !== null){
+        const start = m.index;
+        const end = start + m[0].length;
+
+        if (start > last) frag.appendChild(document.createTextNode(text.slice(last, start)));
+
+        const mark = document.createElement('mark');
+        mark.className = 'hit';
+        mark.textContent = text.slice(start, end);
+        frag.appendChild(mark);
+
+        last = end;
+      }
+
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+
+      node.parentNode.replaceChild(frag, node);
+    });
+
+    currentHits = Array.from(container.querySelectorAll('mark.hit'));
+    if (currentHits.length){
+      currentIndex = 0;
+      focusHit(0);
+    }
+    setHitCount();
+  }
+
+  function focusHit(idx){
+    if (!currentHits.length) return;
+
+    currentHits.forEach(h => h.classList.remove('current'));
+    const el = currentHits[idx];
+    el.classList.add('current');
+
+    el.scrollIntoView({ behavior:'smooth', block:'center' });
+    currentIndex = idx;
+    setHitCount();
+  }
+
+  function nextHit(){
+    if (!currentHits.length) return;
+    const idx = (currentIndex + 1) % currentHits.length;
+    focusHit(idx);
+  }
+
+  function prevHit(){
+    if (!currentHits.length) return;
+    const idx = (currentIndex - 1 + currentHits.length) % currentHits.length;
+    focusHit(idx);
+  }
+
+  function clearSearch(){
+    // clear in BOTH blocks, just to keep it clean
+    blocks.forEach(b => unwrapMarks(b));
+    currentHits = [];
+    currentIndex = -1;
+    searchInput.value = '';
+    setHitCount();
+  }
+
+  // Debounced search
+  let t = null;
+  function runSearch(){
+    const container = getActiveContainer();
+    highlightAll(container, searchInput.value);
+  }
+
+  searchInput.addEventListener('input', () => {
+    clearTimeout(t);
+    t = setTimeout(runSearch, 180);
+  });
+
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter'){
+      e.preventDefault();
+      runSearch();
+    }
+    if (e.key === 'Escape'){
+      clearSearch();
+    }
+  });
+
+  nextBtn.addEventListener('click', nextHit);
+  prevBtn.addEventListener('click', prevHit);
+  clearBtn.addEventListener('click', clearSearch);
+
+  // ---- Tab switching
   function setActiveTab(targetId){
+    activeScopeId = targetId;
+
     blocks.forEach(b => b.classList.toggle('active', b.id === targetId));
     tabLinks.forEach(a => a.classList.toggle('active', a.dataset.target === targetId));
 
@@ -395,6 +635,12 @@
       l.style.pointerEvents = ok ? 'auto' : 'none';
     });
 
+    // reset highlights when switching tabs (prevents broken nav/selection)
+    blocks.forEach(b => unwrapMarks(b));
+    currentHits = [];
+    currentIndex = -1;
+    setHitCount();
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -402,6 +648,24 @@
     link.addEventListener('click', (e) => {
       e.preventDefault();
       setActiveTab(link.dataset.target);
+    });
+  });
+
+  // Section links: ensure they switch to the right tab first
+  sectionLinks.forEach(l => {
+    l.addEventListener('click', (e) => {
+      const scope = l.dataset.scope;
+      if (scope !== activeScopeId){
+        // switch tab, then jump
+        setActiveTab(scope);
+        // allow layout to update before jumping
+        setTimeout(() => {
+          const id = l.getAttribute('href');
+          const el = document.querySelector(id);
+          if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+        }, 50);
+        e.preventDefault();
+      }
     });
   });
 

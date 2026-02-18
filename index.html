@@ -84,6 +84,7 @@
     outline: 2px solid var(--accent);
     box-shadow: 0 0 0 3px rgba(26,115,232,.15);
   }
+
   .search-box{
     border-top: 1px solid var(--line);
     padding-top: 12px;
@@ -266,6 +267,25 @@
     opacity:.9;
   }
 
+  /* ===== Nav badges for search results ===== */
+  .badge{
+    display:none;
+    margin-left:8px;
+    padding:2px 8px;
+    border-radius:999px;
+    font-size:12px;
+    border:1px solid var(--line);
+    background: var(--soft);
+    color: var(--fg);
+    white-space:nowrap;
+  }
+  .badge.on{ display:inline-flex; align-items:center; gap:6px; }
+  .dot{
+    width:6px; height:6px; border-radius:999px;
+    background: var(--accent);
+    display:inline-block;
+  }
+
   .content{ min-width:0; }
   .cv-block{ display:none; }
   .cv-block.active{ display:block; }
@@ -304,6 +324,33 @@
 
   ul{ margin:8px 0 0 18px; padding:0; }
   li{ margin:6px 0; }
+
+  /* ===== Publication sub-box (Google Scholar-ish) ===== */
+  .subbox{
+    margin-top:14px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background: #fafafa;
+    padding:14px;
+  }
+  .subbox-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin:0 0 10px;
+    font-size:14px;
+    font-weight:700;
+    color:#111827;
+  }
+  .subbox-hint{
+    font-size:12px;
+    color:var(--muted);
+    font-weight:400;
+    margin-left:auto;
+    white-space:nowrap;
+  }
+  .subbox .year{ margin-top:10px; }
 
   footer{
     max-width:1100px;
@@ -360,7 +407,10 @@
         <summary>
           <span class="summary-left">
             <span class="pill">EN</span>
-            <span class="summary-title">English version</span>
+            <span class="summary-title">
+              English version
+              <span class="badge" id="badgeEn"><span class="dot"></span><span id="badgeEnText">0</span></span>
+            </span>
           </span>
           <span class="chev" aria-hidden="true"></span>
         </summary>
@@ -377,7 +427,10 @@
         <summary>
           <span class="summary-left">
             <span class="pill">KO</span>
-            <span class="summary-title">Korean version</span>
+            <span class="summary-title">
+              Korean version
+              <span class="badge" id="badgeKo"><span class="dot"></span><span id="badgeKoText">0</span></span>
+            </span>
           </span>
           <span class="chev" aria-hidden="true"></span>
         </summary>
@@ -409,65 +462,69 @@
 
         <div class="year">2026</div>
         <ul>
-          <li>17. Bae, S., Song, H. G., & Sunny, H. W. (2026). From viewing to buying: How viewer attitudes and para-social bonds drive short food content purchase intentions. Culinary Science & Hospitality Research, 32(2). Advance publication certified February 28, 2026. (KCI)</li>
+          <li>17. <strong>Bae, S.</strong>, Song, H. G., & Sunny, H. W. (2026). From viewing to buying: How viewer attitudes and para-social bonds drive short food content purchase intentions. Culinary Science & Hospitality Research, 32(2). Advance publication certified February 28, 2026. (KCI)</li>
         </ul>
 
         <div class="year">2025</div>
         <ul>
-          <li>16. Bae, S. H., &amp; Park, G. G. (2025). The Effects of Consumers’ Perceptions of ESG Management in Foodservice Franchises on Reuse Intention: An Ordered Probit Analysis. <i>Culinary Science &amp; Hospitality Research</i>, 31(12), 243-254. (KCI)</li>
-          <li>15. Bae, S., &amp; Park, G. (2025). An Ordered Probit Analysis of the Factors Influencing Relationships among Cultural Heritage Tourism Motivation, Constraints, and Attitudes. <i>FoodService Industry Journal</i>, 21(6), 431-454. (KCI)</li>
-          <li>14. Bae, S., &amp; Kim, I. (2025). Comparative Analysis of Foreign Consumers’ Perceptions of K-Food Emotions: Focusing on Reddit Cases. <i>The Journal of Internet Electronic Commerce Resarch</i>, 25(5), 121-131. (KCI)</li>
-          <li>13. Lee, S., Bae, S., &amp; Kim, I. (2025). Exploring formation process of willingness to accept online personalised advertising for travel products: The effects of online customised advertising characteristics and past tourism memory. <i>The e-Business Studies</i>, 26(2), 109-125. (KCI)</li>
-          <li>12. Nam, J. H., Bae, S. H., &amp; Kwon, E. K. (2025). The impact of senior tourists’ travel agency package tour experiences on travel satisfaction, trust, and intention to pay premium: Focusing on experiential economic theory. <i>Journal of Tourism Enhancement</i>, 129–148. (KCI)</li>
-          <li>11. Yoon, H., Bae, S., &amp; Park, E. (2025). Effects of Experiential Economic Factors on Emotional Attachment and Pro-Environmental Behaviour Among Nature-based Walking Tourists: The Moderating Effect of Pro-Environmental Identity. <i>Journal of Tourism Enhancement</i>, 13(1), 91-111. (KCI)</li>
+          <li>16. <strong>Bae, S.</strong>, &amp; Park, G. G. (2025). The Effects of Consumers’ Perceptions of ESG Management in Foodservice Franchises on Reuse Intention: An Ordered Probit Analysis. <i>Culinary Science &amp; Hospitality Research</i>, 31(12), 243-254. (KCI)</li>
+          <li>15. <strong>Bae, S.</strong>, &amp; Park, G. (2025). An Ordered Probit Analysis of the Factors Influencing Relationships among Cultural Heritage Tourism Motivation, Constraints, and Attitudes. <i>FoodService Industry Journal</i>, 21(6), 431-454. (KCI)</li>
+          <li>14. <strong>Bae, S.</strong>, &amp; Kim, I. (2025). Comparative Analysis of Foreign Consumers’ Perceptions of K-Food Emotions: Focusing on Reddit Cases. <i>The Journal of Internet Electronic Commerce Resarch</i>, 25(5), 121-131. (KCI)</li>
+          <li>13. Lee, S., <strong>Bae, S.</strong>, &amp; Kim, I. (2025). Exploring formation process of willingness to accept online personalised advertising for travel products: The effects of online customised advertising characteristics and past tourism memory. <i>The e-Business Studies</i>, 26(2), 109-125. (KCI)</li>
+          <li>12. Nam, J. H., <strong>Bae, S.</strong>, &amp; Kwon, E. K. (2025). The impact of senior tourists’ travel agency package tour experiences on travel satisfaction, trust, and intention to pay premium: Focusing on experiential economic theory. <i>Journal of Tourism Enhancement</i>, 129–148. (KCI)</li>
+          <li>11. Yoon, H., <strong>Bae, S.</strong>, &amp; Park, E. (2025). Effects of Experiential Economic Factors on Emotional Attachment and Pro-Environmental Behaviour Among Nature-based Walking Tourists: The Moderating Effect of Pro-Environmental Identity. <i>Journal of Tourism Enhancement</i>, 13(1), 91-111. (KCI)</li>
         </ul>
 
         <div class="year">2024</div>
         <ul>
-          <li>10. Bae, S., &amp; Kim, I. (2024). Social Perception and Activation Strategies of Templestay - A Big Data Analysis of ‘Surfing Templestay, Dangplestay, and Naneun Jeollo’ -. <i>FoodService Industry Journal</i>, 20(6), 275-288. (KCI)</li>
-          <li>9. Kim, I., &amp; Bae, S. (2024). The Effects of Motivation for Open-Kitchen Restaurants Adopting Robot Chefs on Consumer Attitude, Intentions to Use, and Word-of-Mouth - The Moderating Role of Alternative Attractiveness -. <i>FoodService Industry Journal</i>, 20(6), 383-397. (KCI)</li>
-          <li>8. Park, E. H., Bae, S., &amp; Kim, I. (2024). Exploring motivations influencing customers’ attitudes toward using reusable cups in eco-friendly coffee shops. <i>Journal of Tourism Enhancement</i>, 167-184.</li>
-          <li>7. Kim, Y., Bae, S., &amp; Kim, I. (2024). Effects of Robotic Chefs’ Food Quality Prediction and Personal Innovativeness on Consumer Attitudes and Intention to Visit the Restaurant. <i>Journal of Tourism Enhancement</i>, 12(3), 27-42. (KCI)</li>
-          <li>6. Bae, S., Kim, J., Kim, D., &amp; Kim, I. (2024). Investigating benefits of operating shared kitchen for virtual restaurants: from the small-business owner perspectives. <i>Journal of Hospitality and Tourism Studies</i>, 26(4), 193-204. (KCI)</li>
-          <li>5. Kang, S. R., Han, S. H., Bae, S. H., &amp; Yoon, Y. H. (2024). The effect of serving robots on attitude and behavioural intention of restaurant customers: Focused on UTAUT2 and moderating effect of shyness. <i>Korean Journal of Franchise Management</i>, 15(2), 57–75. (KCI)</li>
-          <li>4. Bae, S., &amp; Kim, I. (2024). Investigating barriers hindering attitude formation towards reusable cup usage in the coffee shop industry. <i>FoodService Industry Journal</i>, 20(3), 119-131. (KCI)</li>
-          <li>3. Bae, S., &amp; Kim, I. (2024). Exploring the structure of motivations, benefits and values of walking travel experience sharing on social media. <i>Journal of Hospitality and Tourism Studies</i>, 26(2), 65-79. (KCI)</li>
+          <li>10. <strong>Bae, S.</strong>, &amp; Kim, I. (2024). Social Perception and Activation Strategies of Templestay - A Big Data Analysis of ‘Surfing Templestay, Dangplestay, and Naneun Jeollo’ -. <i>FoodService Industry Journal</i>, 20(6), 275-288. (KCI)</li>
+          <li>9. Kim, I., &amp; <strong>Bae, S.</strong> (2024). The Effects of Motivation for Open-Kitchen Restaurants Adopting Robot Chefs on Consumer Attitude, Intentions to Use, and Word-of-Mouth - The Moderating Role of Alternative Attractiveness -. <i>FoodService Industry Journal</i>, 20(6), 383-397. (KCI)</li>
+          <li>8. Park, E., <strong>Bae, S.</strong>, &amp; Kim, I. (2024). Exploring motivations influencing customers’ attitudes toward using reusable cups in eco-friendly coffee shops. <i>Journal of Tourism Enhancement</i>, 167-184.</li>
+          <li>7. Kim, Y., <strong>Bae, S.</strong>, &amp; Kim, I. (2024). Effects of Robotic Chefs’ Food Quality Prediction and Personal Innovativeness on Consumer Attitudes and Intention to Visit the Restaurant. <i>Journal of Tourism Enhancement</i>, 12(3), 27-42. (KCI)</li>
+          <li>6. <strong>Bae, S.</strong>, Kim, J., Kim, D., &amp; Kim, I. (2024). Investigating benefits of operating shared kitchen for virtual restaurants: from the small-business owner perspectives. <i>Journal of Hospitality and Tourism Studies</i>, 26(4), 193-204. (KCI)</li>
+          <li>5. Kang, S., Han, S. H., <strong>Bae, S. H.</strong>, &amp; Yoon, Y. H. (2024). The effect of serving robots on attitude and behavioural intention of restaurant customers: Focused on UTAUT2 and moderating effect of shyness. <i>Korean Journal of Franchise Management</i>, 15(2), 57–75. (KCI)</li>
+          <li>4. <strong>Bae, S.</strong>, &amp; Kim, I. (2024). Investigating barriers hindering attitude formation towards reusable cup usage in the coffee shop industry. <i>FoodService Industry Journal</i>, 20(3), 119-131. (KCI)</li>
+          <li>3. <strong>Bae, S.</strong>, &amp; Kim, I. (2024). Exploring the structure of motivations, benefits and values of walking travel experience sharing on social media. <i>Journal of Hospitality and Tourism Studies</i>, 26(2), 65-79. (KCI)</li>
         </ul>
 
         <div class="year">2023</div>
         <ul>
-          <li>2. Bae, S., Park, H., Kang, S., &amp; Han, S. (2023). How Usage Motivation Regarding Serving Robots affect Customer Attitudes and Intent to Revisit Restaurants. <i>FoodService Industry Journal</i>, 19(6), 281-295. (KCI)</li>
+          <li>2. <strong>Bae, S.</strong>, Park, H., Kang, S., &amp; Han, S. (2023). How Usage Motivation Regarding Serving Robots affect Customer Attitudes and Intent to Revisit Restaurants. <i>FoodService Industry Journal</i>, 19(6), 281-295. (KCI)</li>
         </ul>
 
         <div class="year">2022</div>
         <ul>
-          <li>1. Bae, S., &amp; Kim, I. (2022). Importance-satisfaction Analysis for Campsite Selection Attributes after COVID-19 Outbreak: Differences between Campers Depending on Frequency of Camping Experience. <i>Korean Journal of Hospitality &amp; Tourism</i>, 31(4), 127-145. (KCI)</li>
-        </ul>
-      </section>
-
-      <!-- ✅ Publications 아래(2022 밑) 박스로 복원 -->
-      <section id="writing-en">
-        <h2>Papers under the development and/or writing</h2>
-
-        <div class="year">AirStas Team 6</div>
-        <ul>
-          <li>26. Bae, S., Lee, H., Soeiro, J. D., Shin, H., Metzger, P., &amp; Kim, M. J. (2026a). Tentative title: Immersive recovery Through Space Tourism: An Experimental Study on Psychological and Physiological Responses, <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
-          <li>27. Lee, H., Bae, S., Soeiro, J. D., Shin, H., Metzger, P., &amp; Kim, M. J. (2026b). Tentative title: Does Microgravity-like VR Recalibrate Risk? Evidence from Underwater vs. Ground VR for Space Tourism, <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
-          <li>28. Park, G., Bae, S., Lee, H., Soeiro, J. D., Metzger, P., &amp; Kim, M. J. (2026c). Tentative title: Estimating Consumer Preferences for Space Tourism Experiences: Sensation Seeking, Need for Uniqueness, and Willingness to Pay, <i>Journal of Travel Research</i>, Under the development (SSCI, Q1).</li>
+          <li>1. <strong>Bae, S.</strong>, &amp; Kim, I. (2022). Importance-satisfaction Analysis for Campsite Selection Attributes after COVID-19 Outbreak: Differences between Campers Depending on Frequency of Camping Experience. <i>Korean Journal of Hospitality &amp; Tourism</i>, 31(4), 127-145. (KCI)</li>
         </ul>
 
-        <div class="year">AirStas Team 7</div>
-        <ul>
-          <li>1. Bae, S., Choi, H., Kim, N., Petrick, J. F., &amp; Kim, M. J. (2026). Tentative title: Space Flight Experience Interview, <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
-          <li>2. Choi, H., Bae, S., Kim, N., Petrick, J. F., &amp; Kim, M. J. (2026). Tentative title: Affective and Emotional Experiences of Space Tourists in Isolated Space Environments, <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
-        </ul>
+        <!-- ✅ Publications 하위 박스 (Google Scholar 느낌) -->
+        <div class="subbox" id="writing-en">
+          <div class="subbox-title">
+            Papers under the development and/or writing
+            <span class="subbox-hint">Included under Publications</span>
+          </div>
 
-        <div class="year">AirStas Team 9</div>
-        <ul>
-          <li>32. Lee, H., Lim, W. M., Bae, S., Hong, M., &amp; Kim, M. J. (2026a). Tentative title: Space tourism bibliometric analysis: Business ecosystem &amp; strategic management (or the space tourist experience &amp; motivations), Tentative target journal: <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
-          <li>33. Bae, S., Lim, W. M., Lee, H., Hong, M., &amp; Kim, M. J. (2026b). Tentative title: Space tourism bibliometric analysis: Sustainability, ethics &amp; corporate social responsibility, Tentative target journal: <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
-          <li>34. Hong, M., Lim, W. M., Lee, H., Bae, S., &amp; Kim, M. J. (2026c). Tentative title: Space tourism bibliometric analysis: Risk, regulation &amp; policy challenges, Tentative target journal: <i>Journal of Travel Research</i>, Under the development (SSCI, Q1).</li>
-        </ul>
+          <div class="year">AirStas Team 6</div>
+          <ul>
+            <li>26. <strong>Bae, S.</strong>, Lee, H., Soeiro, J. D., Shin, H., Metzger, P., &amp; Kim, M. J. (2026a). Tentative title: Immersive recovery Through Space Tourism: An Experimental Study on Psychological and Physiological Responses, <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
+            <li>27. Lee, H., <strong>Bae, S.</strong>, Soeiro, J. D., Shin, H., Metzger, P., &amp; Kim, M. J. (2026b). Tentative title: Does Microgravity-like VR Recalibrate Risk? Evidence from Underwater vs. Ground VR for Space Tourism, <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
+            <li>28. Park, G., <strong>Bae, S.</strong>, Lee, H., Soeiro, J. D., Metzger, P., &amp; Kim, M. J. (2026c). Tentative title: Estimating Consumer Preferences for Space Tourism Experiences: Sensation Seeking, Need for Uniqueness, and Willingness to Pay, <i>Journal of Travel Research</i>, Under the development (SSCI, Q1).</li>
+          </ul>
+
+          <div class="year">AirStas Team 7</div>
+          <ul>
+            <li>1. <strong>Bae, S.</strong>, Choi, H., Kim, N., Petrick, J. F., &amp; Kim, M. J. (2026). Tentative title: Space Flight Experience Interview, <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
+            <li>2. Choi, H., <strong>Bae, S.</strong>, Kim, N., Petrick, J. F., &amp; Kim, M. J. (2026). Tentative title: Affective and Emotional Experiences of Space Tourists in Isolated Space Environments, <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
+          </ul>
+
+          <div class="year">AirStas Team 9</div>
+          <ul>
+            <li>32. Lee, H., Lim, W. M., <strong>Bae, S.</strong>, Hong, M., &amp; Kim, M. J. (2026a). Tentative title: Space tourism bibliometric analysis: Business ecosystem &amp; strategic management (or the space tourist experience &amp; motivations), Tentative target journal: <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
+            <li>33. <strong>Bae, S.</strong>, Lim, W. M., Lee, H., Hong, M., &amp; Kim, M. J. (2026b). Tentative title: Space tourism bibliometric analysis: Sustainability, ethics &amp; corporate social responsibility, Tentative target journal: <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
+            <li>34. Hong, M., Lim, W. M., Lee, H., <strong>Bae, S.</strong>, &amp; Kim, M. J. (2026c). Tentative title: Space tourism bibliometric analysis: Risk, regulation &amp; policy challenges, Tentative target journal: <i>Journal of Travel Research</i>, Under the development (SSCI, Q1).</li>
+          </ul>
+        </div>
+
       </section>
 
       <section id="proj-en">
@@ -507,7 +564,7 @@
 
         <div class="year">2026</div>
         <ul>
-          <li>17. From Viewing to Buying: How Viewer Attitudes and Para-Social Bonds Drive Short Food Content Purchase Intentions. <i>Culinary Science &amp; Hospitality Research</i>, 32(02), 미정</li>
+          <li>17. From viewing to buying: How viewer attitudes and para-social bonds drive short food content purchase intentions. Culinary Science & Hospitality Research, 32(2). 2026년 2월 28일 게재 예정.</li>
         </ul>
 
         <div class="year">2025</div>
@@ -541,31 +598,35 @@
         <ul>
           <li>1. 코로나 19 발생 이후 캠핑장 선택속성의 중요도-만족도 분석: 캠핑경험 빈도에 따른 차이. <i>호텔경영학연구</i>, 31(4), 127-145.</li>
         </ul>
-      </section>
 
-      <!-- ✅ 국문 탭에도 동일 내용(영문 그대로) 추가 -->
-      <section id="writing-ko">
-        <h2>Papers under the development and/or writing</h2>
+        <!-- ✅ 국문 Publications 하위 박스 (영문 그대로 + 이름 볼드) -->
+        <div class="subbox" id="writing-ko">
+          <div class="subbox-title">
+            Papers under the development and/or writing
+            <span class="subbox-hint">Included under Publications</span>
+          </div>
 
-        <div class="year">AirStas Team 6</div>
-        <ul>
-          <li>26. Bae, S., Lee, H., Soeiro, J. D., Shin, H., Metzger, P., &amp; Kim, M. J. (2026a). Tentative title: Immersive recovery Through Space Tourism: An Experimental Study on Psychological and Physiological Responses, <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
-          <li>27. Lee, H., Bae, S., Soeiro, J. D., Shin, H., Metzger, P., &amp; Kim, M. J. (2026b). Tentative title: Does Microgravity-like VR Recalibrate Risk? Evidence from Underwater vs. Ground VR for Space Tourism, <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
-          <li>28. Park, G., Bae, S., Lee, H., Soeiro, J. D., Metzger, P., &amp; Kim, M. J. (2026c). Tentative title: Estimating Consumer Preferences for Space Tourism Experiences: Sensation Seeking, Need for Uniqueness, and Willingness to Pay, <i>Journal of Travel Research</i>, Under the development (SSCI, Q1).</li>
-        </ul>
+          <div class="year">AirStas Team 6</div>
+          <ul>
+            <li>26. <strong>Bae, S.</strong>, Lee, H., Soeiro, J. D., Shin, H., Metzger, P., &amp; Kim, M. J. (2026a). Tentative title: Immersive recovery Through Space Tourism: An Experimental Study on Psychological and Physiological Responses, <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
+            <li>27. Lee, H., <strong>Bae, S.</strong>, Soeiro, J. D., Shin, H., Metzger, P., &amp; Kim, M. J. (2026b). Tentative title: Does Microgravity-like VR Recalibrate Risk? Evidence from Underwater vs. Ground VR for Space Tourism, <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
+            <li>28. Park, G., <strong>Bae, S.</strong>, Lee, H., Soeiro, J. D., Metzger, P., &amp; Kim, M. J. (2026c). Tentative title: Estimating Consumer Preferences for Space Tourism Experiences: Sensation Seeking, Need for Uniqueness, and Willingness to Pay, <i>Journal of Travel Research</i>, Under the development (SSCI, Q1).</li>
+          </ul>
 
-        <div class="year">AirStas Team 7</div>
-        <ul>
-          <li>1. Bae, S., Choi, H., Kim, N., Petrick, J. F., &amp; Kim, M. J. (2026). Tentative title: Space Flight Experience Interview, <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
-          <li>2. Choi, H., Bae, S., Kim, N., Petrick, J. F., &amp; Kim, M. J. (2026). Tentative title: Affective and Emotional Experiences of Space Tourists in Isolated Space Environments, <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
-        </ul>
+          <div class="year">AirStas Team 7</div>
+          <ul>
+            <li>1. <strong>Bae, S.</strong>, Choi, H., Kim, N., Petrick, J. F., &amp; Kim, M. J. (2026). Tentative title: Space Flight Experience Interview, <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
+            <li>2. Choi, H., <strong>Bae, S.</strong>, Kim, N., Petrick, J. F., &amp; Kim, M. J. (2026). Tentative title: Affective and Emotional Experiences of Space Tourists in Isolated Space Environments, <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
+          </ul>
 
-        <div class="year">AirStas Team 9</div>
-        <ul>
-          <li>32. Lee, H., Lim, W. M., Bae, S., Hong, M., &amp; Kim, M. J. (2026a). Tentative title: Space tourism bibliometric analysis: Business ecosystem &amp; strategic management (or the space tourist experience &amp; motivations), Tentative target journal: <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
-          <li>33. Bae, S., Lim, W. M., Lee, H., Hong, M., &amp; Kim, M. J. (2026b). Tentative title: Space tourism bibliometric analysis: Sustainability, ethics &amp; corporate social responsibility, Tentative target journal: <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
-          <li>34. Hong, M., Lim, W. M., Lee, H., Bae, S., &amp; Kim, M. J. (2026c). Tentative title: Space tourism bibliometric analysis: Risk, regulation &amp; policy challenges, Tentative target journal: <i>Journal of Travel Research</i>, Under the development (SSCI, Q1).</li>
-        </ul>
+          <div class="year">AirStas Team 9</div>
+          <ul>
+            <li>32. Lee, H., Lim, W. M., <strong>Bae, S.</strong>, Hong, M., &amp; Kim, M. J. (2026a). Tentative title: Space tourism bibliometric analysis: Business ecosystem &amp; strategic management (or the space tourist experience &amp; motivations), Tentative target journal: <i>Tourism Management</i>, Under the development (SSCI, Q1).</li>
+            <li>33. <strong>Bae, S.</strong>, Lim, W. M., Lee, H., Hong, M., &amp; Kim, M. J. (2026b). Tentative title: Space tourism bibliometric analysis: Sustainability, ethics &amp; corporate social responsibility, Tentative target journal: <i>Annals of Tourism Research</i>, Under the development (SSCI, Q1).</li>
+            <li>34. Hong, M., Lim, W. M., Lee, H., <strong>Bae, S.</strong>, &amp; Kim, M. J. (2026c). Tentative title: Space tourism bibliometric analysis: Risk, regulation &amp; policy challenges, Tentative target journal: <i>Journal of Travel Research</i>, Under the development (SSCI, Q1).</li>
+          </ul>
+        </div>
+
       </section>
 
       <section id="proj-ko">
@@ -629,6 +690,12 @@
   const scopeTab = document.getElementById('scopeTab');
   const scopeAll = document.getElementById('scopeAll');
 
+  // Nav badges
+  const badgeEn = document.getElementById('badgeEn');
+  const badgeKo = document.getElementById('badgeKo');
+  const badgeEnText = document.getElementById('badgeEnText');
+  const badgeKoText = document.getElementById('badgeKoText');
+
   let currentHits = [];
   let currentIndex = -1;
   let activeScopeId = 'en';
@@ -643,10 +710,41 @@
     return getActiveContainer();
   }
 
+  function updateBadges(){
+    const q = searchInput.value.trim();
+    if (!q || !currentHits.length){
+      badgeEn.classList.remove('on');
+      badgeKo.classList.remove('on');
+      badgeEnText.textContent = '0';
+      badgeKoText.textContent = '0';
+      return;
+    }
+
+    const enCount = document.querySelectorAll('#en mark.hit').length;
+    const koCount = document.querySelectorAll('#ko mark.hit').length;
+
+    if (enCount > 0){
+      badgeEn.classList.add('on');
+      badgeEnText.textContent = String(enCount);
+    } else {
+      badgeEn.classList.remove('on');
+      badgeEnText.textContent = '0';
+    }
+
+    if (koCount > 0){
+      badgeKo.classList.add('on');
+      badgeKoText.textContent = String(koCount);
+    } else {
+      badgeKo.classList.remove('on');
+      badgeKoText.textContent = '0';
+    }
+  }
+
   function setHitCount(){
     const n = currentHits.length;
     if (!n) hitCountEl.textContent = '0 results';
     else hitCountEl.textContent = `${n} results — ${currentIndex + 1}/${n}`;
+    updateBadges();
   }
 
   function unwrapMarks(container){
@@ -656,7 +754,6 @@
   }
 
   function clearAllMarks(){
-    // remove highlights from both tabs (and any part of the page)
     blocks.forEach(b => unwrapMarks(b));
     unwrapMarks(document.body);
   }
@@ -666,7 +763,6 @@
   }
 
   function highlightAll(container, query){
-    // remove existing highlights in both tabs first
     clearAllMarks();
 
     currentHits = [];
@@ -732,7 +828,6 @@
     const el = currentHits[idx];
     el.classList.add('current');
 
-    // If searching whole page, we might need to reveal the right tab before scrolling
     if (searchMode === 'all'){
       const hitInEn = el.closest('#en');
       const hitInKo = el.closest('#ko');
@@ -768,14 +863,12 @@
     highlightAll(getSearchContainer(), searchInput.value);
   }
 
-  // Scope toggle
   function setSearchMode(mode){
     searchMode = mode;
     scopeTab.classList.toggle('active', mode === 'tab');
     scopeAll.classList.toggle('active', mode === 'all');
     scopeTab.setAttribute('aria-pressed', mode === 'tab' ? 'true' : 'false');
     scopeAll.setAttribute('aria-pressed', mode === 'all' ? 'true' : 'false');
-    // re-run search with new mode
     runSearch();
   }
 
@@ -798,7 +891,6 @@
   prevBtn.addEventListener('click', prevHit);
   clearBtn.addEventListener('click', clearSearch);
 
-  // ---- Tabs
   function setActiveTab(targetId, doScrollTop=true){
     activeScopeId = targetId;
 
@@ -808,6 +900,12 @@
     if (doScrollTop){
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    if (searchMode === 'tab' && searchInput.value.trim()){
+      runSearch();
+    } else {
+      updateBadges();
+    }
   }
 
   tabLinks.forEach(link => {
@@ -815,19 +913,12 @@
       e.preventDefault();
       setActiveTab(link.dataset.target);
 
-      // open selected group, close the other
       const group = link.closest('details.nav-group');
       document.querySelectorAll('details.nav-group').forEach(d => d.open = false);
       if (group) group.open = true;
-
-      // if scope is "tab", rerun search only within that tab
-      if (searchMode === 'tab' && searchInput.value.trim()){
-        runSearch();
-      }
     });
   });
 
-  // Section links: if scope differs, switch first then jump
   sectionLinks.forEach(l => {
     l.addEventListener('click', (e) => {
       const scope = l.dataset.scope;
@@ -835,13 +926,11 @@
         e.preventDefault();
         setActiveTab(scope);
 
-        // open the right group
         const groups = document.querySelectorAll('details.nav-group');
         groups.forEach(d => d.open = false);
         if (scope === 'en' && groups[0]) groups[0].open = true;
         if (scope === 'ko' && groups[1]) groups[1].open = true;
 
-        // jump after DOM update
         setTimeout(() => {
           const id = l.getAttribute('href');
           const el = document.querySelector(id);
@@ -851,9 +940,9 @@
     });
   });
 
-  // default
   setActiveTab('en', true);
   setSearchMode('tab');
+  updateBadges();
 </script>
 
 </body>
